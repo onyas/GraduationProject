@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -35,7 +36,6 @@ public class SplashActivity extends Activity {
 			case 1:
 				showUpdateDialog();
 				break;
-
 			default:
 				break;
 			}
@@ -108,6 +108,7 @@ public class SplashActivity extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				Log.i(TAG, "用户取消，进入主界面");
+				loadMainUI();
 			}
 		});
 
@@ -127,6 +128,7 @@ public class SplashActivity extends Activity {
 			String serverVersion = info.getVersion();
 			if (serverVersion.equals(version)) {
 				Log.i(TAG, "版本号相同，不需要升级，直接进入主界面");
+				loadMainUI();
 				return false;
 			} else {
 				Log.i(TAG, "版本号不相同，需要升级");
@@ -134,10 +136,20 @@ public class SplashActivity extends Activity {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			Toast.makeText(this, "获取服务器信息异常", Toast.LENGTH_SHORT).show();
-			Log.i(TAG, "获取服务器信息异常");
+			Toast.makeText(this, "获取服务器信息异常,进入主界面", Toast.LENGTH_SHORT).show();
+			Log.i(TAG, "获取服务器信息异常,进入主界面");
+			loadMainUI();
 			return false;
 		}
+	}
+
+	/**
+	 * 进入主界面
+	 */
+	private void loadMainUI() {
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+		finish();
 	}
 
 	/**
