@@ -1,14 +1,19 @@
 package com.onyas.phoneguard.ui;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -21,6 +26,7 @@ import android.widget.Toast;
 
 import com.onyas.phoneguard.R;
 import com.onyas.phoneguard.domain.UpdateInfo;
+import com.onyas.phoneguard.engine.DownLoadFileTask;
 import com.onyas.phoneguard.engine.UpdateInfoEngine;
 
 public class SplashActivity extends Activity {
@@ -28,6 +34,7 @@ public class SplashActivity extends Activity {
 	private static final String TAG = "SplashActivity";
 	private TextView tv_version;
 	private LinearLayout ll_main;
+	private ProgressDialog pd;
 	private UpdateInfo info;
 	private Handler handler = new Handler() {
 		@Override
@@ -55,13 +62,16 @@ public class SplashActivity extends Activity {
 
 		ll_main = (LinearLayout) this.findViewById(R.id.ll_splash_main);
 		tv_version = (TextView) this.findViewById(R.id.tv_splash_version);
+		pd = new ProgressDialog(this);
+		pd.setMessage("正在下载...");
+		pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 		String version = getVersion();
 		tv_version.setText(version);
 
-		new Thread(new VersionThread()).start();
+		new Thread(new GetVersionThread()).start();
 
 		AlphaAnimation aa = new AlphaAnimation(0.0f, 1.0f);
-		aa.setDuration(1000);
+		aa.setDuration(2000);
 
 		ll_main.startAnimation(aa);
 	}
@@ -72,19 +82,99 @@ public class SplashActivity extends Activity {
 	 * @author Administrator
 	 * 
 	 */
-	public class VersionThread implements Runnable {
+	private class GetVersionThread implements Runnable {
 
 		@Override
 		public void run() {
-			if (isNeedUpdate(getVersion())) {
-				Log.i(TAG, "弹出升级对话框");
-				Message msg = new Message();
-				msg.what=1;
-				handler.sendMessage(msg);
+
+			try {
+				Thread.sleep(2000);
+				if (isNeedUpdate(getVersion())) {
+					Log.i(TAG, "弹出升级对话框");
+					Message msg = new Message();
+					msg.what = 1;
+					handler.sendMessage(msg);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			
+		}
+
+	}
+
+	/**
+	 * 下载要更新文件的线程
+	 * 
+	 * @author Administrator
+	 * 
+	 */
+	private class DownLoadFileThread implements Runnable {
+
+		private String path;// 服务器文件地址
+		private String filePath;// 本地文件地址
+
+		public DownLoadFileThread(String path, String filePath) {
+			this.path = path;
+			this.filePath = filePath;
+		}
+
+		@Override
+		public void run() {
+			try {
+				File file = DownLoadFileTask.getFile(path, filePath, pd);
+				Log.i(TAG, "成功下载文件！");
+				pd.dismiss();
+				installApk(file);
+			} catch (Exception e) {
+				e.printStackTrace();
+				pd.dismiss();
+				Toast.makeText(getApplicationContext(), "下载文件出出错",
+						Toast.LENGTH_SHORT).show();
+				loadMainUI();
 			}
 		}
 
 	}
+
+	/**
+	 * 安装apk文件
+	 * 
+	 * @param file
+	 */
+	private void installApk(File file) {
+		Intent intent = new Intent();
+		intent.setAction(Intent.ACTION_VIEW);
+		intent.setDataAndType(Uri.fromFile(file),
+				"application/vnd.android.package-archive");
+		finish();
+		startActivity(intent);
+	}
+	
+	
+	
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		switch (requestCode) {
+		case 1:
+			if(resultCode==Activity.RESULT_CANCELED){
+				loadMainUI();
+			}
+			break;
+
+		default:
+			break;
+		}
+	}
+
+
+
+
+
 
 	/**
 	 * 弹出升级对话框
@@ -99,7 +189,21 @@ public class SplashActivity extends Activity {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				Log.i(TAG, "下载apk文件" + info.getApkurl());
+				if (Environment.getExternalStorageState().equals(
+						Environment.MEDIA_MOUNTED)) {
+					Log.i(TAG, "下载apk文件" + info.getApkurl());
+					pd.show();
+					DownLoadFileThread downloadThread = new DownLoadFileThread(
+							info.getApkurl(), Environment
+									.getExternalStorageDirectory().getPath()
+									+ "/newapk.apk");
+					new Thread(downloadThread).start();
+				} else {
+					Toast.makeText(getApplicationContext(), "sd卡不可用",
+							Toast.LENGTH_SHORT).show();
+					loadMainUI();
+				}
+
 			}
 		});
 
