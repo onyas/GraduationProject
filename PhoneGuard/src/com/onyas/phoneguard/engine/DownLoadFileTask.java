@@ -21,7 +21,7 @@ public class DownLoadFileTask {
 	public static File getFile(String path,String filePath,ProgressDialog pd) throws Exception{
 		URL url = new URL(path);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setConnectTimeout(5000);
+		conn.setConnectTimeout(2000);
 		conn.setRequestMethod("GET");
 		int code = conn.getResponseCode();
 		if(code==200)

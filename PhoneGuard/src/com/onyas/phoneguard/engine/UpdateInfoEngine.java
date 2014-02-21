@@ -27,7 +27,7 @@ public class UpdateInfoEngine {
 		String path = context.getResources().getString(R.string.apkserver);
 		URL url = new URL(path);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setConnectTimeout(5000);
+		conn.setConnectTimeout(2000);
 		conn.setRequestMethod("GET");
 		InputStream is = conn.getInputStream();
 		return UpdateInfoParser.parser(is);

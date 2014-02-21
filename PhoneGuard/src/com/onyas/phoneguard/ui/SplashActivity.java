@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.Window;
@@ -95,8 +96,13 @@ public class SplashActivity extends Activity {
 					msg.what = 1;
 					handler.sendMessage(msg);
 				}
-			} catch (InterruptedException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
+				Looper.prepare();
+				Toast.makeText(getApplicationContext(), "获取服务器信息异常,进入主界面", Toast.LENGTH_SHORT).show();
+				Log.i(TAG, "获取服务器信息异常,进入主界面");
+				loadMainUI();
+				Looper.loop();
 			}
 			
 			
@@ -252,8 +258,8 @@ public class SplashActivity extends Activity {
 	 */
 	private void loadMainUI() {
 		Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);
 		finish();
+		startActivity(intent);
 	}
 
 	/**

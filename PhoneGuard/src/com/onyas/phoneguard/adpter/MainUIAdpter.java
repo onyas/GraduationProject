@@ -1,6 +1,7 @@
 package com.onyas.phoneguard.adpter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ public class MainUIAdpter extends BaseAdapter {
 
 	private Context context;
 	private LayoutInflater inflater;
+	private SharedPreferences sp;
 	private static ImageView iv_main_fun;
 	private static TextView tv_main_name;
 	
@@ -21,6 +23,7 @@ public class MainUIAdpter extends BaseAdapter {
 	public MainUIAdpter(Context context) {
 		this.context = context;
 		inflater = LayoutInflater.from(context);
+		sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
 	}
 
 	private static String[] names = { "手机防盗", "通讯卫士", "软件管理", "任务管理", "上网管理", "手机杀毒",
@@ -57,6 +60,10 @@ public class MainUIAdpter extends BaseAdapter {
 		iv_main_fun.setImageResource(icons[position]);
 		tv_main_name = (TextView) view.findViewById(R.id.tv_main_name);
 		tv_main_name.setText(names[position]);
+		if(position==0){
+			String name = sp.getString("phonelost", names[position]);
+			tv_main_name.setText(name);
+		}
 		return view;
 	}
 
