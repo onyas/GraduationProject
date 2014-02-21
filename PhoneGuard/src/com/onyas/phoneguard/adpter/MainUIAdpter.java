@@ -14,7 +14,8 @@ public class MainUIAdpter extends BaseAdapter {
 
 	private Context context;
 	private LayoutInflater inflater;
-	
+	private static ImageView iv_main_fun;
+	private static TextView tv_main_name;
 	
 	
 	public MainUIAdpter(Context context) {
@@ -47,10 +48,14 @@ public class MainUIAdpter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
+		//getView 调用的次数多于getCount()，原因是不知道每一条目显示在界面上的大小
+		//会先试着在界面上调整一下，然后在调用一遍或多遍getView()来最终确定位置
+		//对于程序的效率来说下降了很多 ，所以把iv_main_fun与tv_main_name定义为静态的，这样程序中只持有一个实例
+		
 		View view = inflater.inflate(R.layout.main_screen_item, null);
-		ImageView iv_main_fun = (ImageView) view.findViewById(R.id.iv_main_function);
+		iv_main_fun = (ImageView) view.findViewById(R.id.iv_main_function);
 		iv_main_fun.setImageResource(icons[position]);
-		TextView tv_main_name = (TextView) view.findViewById(R.id.tv_main_name);
+		tv_main_name = (TextView) view.findViewById(R.id.tv_main_name);
 		tv_main_name.setText(names[position]);
 		return view;
 	}
