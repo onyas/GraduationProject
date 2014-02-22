@@ -24,7 +24,7 @@
             android:textColor="#ff000000" />
 
         <EditText
-            android:id="@+id/first_entry_pwd"
+            android:id="@+id/et_first_entry_pwd"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
@@ -36,7 +36,7 @@
             android:textColor="#ff000000" />
 
         <EditText
-            android:id="@+id/first_entry__confrim_pwd"
+            android:id="@+id/et_first_entry__confrim_pwd"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
