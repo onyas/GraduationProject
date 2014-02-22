@@ -6,5 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="splash_version">版本号</string>
     <string name="test">文字测试</string>
+    <string name="phoneProtectd">手机防盗</string>
 
 </resources>

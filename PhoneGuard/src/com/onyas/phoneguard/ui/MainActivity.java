@@ -6,6 +6,7 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -101,6 +102,8 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		switch (position) {
 		case 0://手机防盗功能
 			Log.i(TAG, "手机防盗功能");
+			Intent phoneIntent = new Intent(getApplicationContext(), PhoneProtectedActivity.class);
+			startActivity(phoneIntent);
 			break;
 
 		default:
