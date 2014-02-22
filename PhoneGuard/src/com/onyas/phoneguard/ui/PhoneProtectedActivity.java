@@ -19,7 +19,7 @@ import com.onyas.phoneguard.R;
 public class PhoneProtectedActivity extends Activity implements OnClickListener {
 
 	private static final String TAG = "PhoneProtectedActivity";
-	private EditText et_password,et_password_confirm;
+	private EditText et_password, et_password_confirm, et_login_pwd;
 	private SharedPreferences sp;
 	private Dialog dialog;
 
@@ -44,8 +44,7 @@ public class PhoneProtectedActivity extends Activity implements OnClickListener 
 		dialog = new Dialog(this, R.style.MyDialog);
 		// dialog.setContentView(R.layout.first_mydialog);
 		View view = View.inflate(this, R.layout.first_mydialog, null);
-		 et_password = (EditText) view
-				.findViewById(R.id.et_first_entry_pwd);
+		et_password = (EditText) view.findViewById(R.id.et_first_entry_pwd);
 		et_password_confirm = (EditText) view
 				.findViewById(R.id.et_first_entry__confrim_pwd);
 		Button bt_ok = (Button) view.findViewById(R.id.bt_first_entry_confirm);
@@ -62,7 +61,17 @@ public class PhoneProtectedActivity extends Activity implements OnClickListener 
 	 * 显示要登陆的对话框
 	 */
 	private void showNormalDialog() {
-
+		dialog = new Dialog(this, R.style.MyDialog);
+		View view = View.inflate(this, R.layout.login_mydialog, null);
+		et_login_pwd = (EditText) view.findViewById(R.id.et_login_pwd);
+		Button bt_login_ok = (Button) view.findViewById(R.id.bt_login_confirm);
+		Button bt_login_cancel = (Button) view
+				.findViewById(R.id.bt_login_cancel);
+		bt_login_ok.setOnClickListener(this);
+		bt_login_cancel.setOnClickListener(this);
+		dialog.setContentView(view);
+		dialog.setCancelable(false);
+		dialog.show();
 	}
 
 	/**
@@ -84,31 +93,48 @@ public class PhoneProtectedActivity extends Activity implements OnClickListener 
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case R.id.bt_first_entry_confirm://点击确定时
+		case R.id.bt_first_entry_confirm:// 点击确定，保存密码时
 			String password = et_password.getText().toString().trim();
-			String pwd_confirm = et_password_confirm.getText().toString().trim();
-			if(TextUtils.isEmpty(password) || TextUtils.isEmpty(pwd_confirm))
-			{
+			String pwd_confirm = et_password_confirm.getText().toString()
+					.trim();
+			if (TextUtils.isEmpty(password) || TextUtils.isEmpty(pwd_confirm)) {
 				Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
-				return ;
-			}else
-			{
-				if(pwd_confirm.equals(password))
-				{
+				return;
+			} else {
+				if (!pwd_confirm.equals(password)) {
+					Toast.makeText(this, "两次密码不同", Toast.LENGTH_SHORT).show();
+					return;
+				} else {
 					Editor editor = sp.edit();
 					editor.putString("password", password);
 					editor.commit();
 					Toast.makeText(this, "密码设置成功", Toast.LENGTH_SHORT).show();
-					dialog.dismiss();
-				}else
-				{
-					Toast.makeText(this, "两次密码不同", Toast.LENGTH_SHORT).show();
-					return ;
 				}
 			}
+			dialog.dismiss();
 			break;
-		case R.id.bt_first_entry_cancel://点击取消时
-			dialog.dismiss();//自定义的对话框，要显示的关闭
+		case R.id.bt_first_entry_cancel:// 点击取消时
+			dialog.dismiss();// 自定义的对话框，要显示的关闭
+			break;
+
+		case R.id.bt_login_cancel:// 点击取消时
+			dialog.dismiss();// 自定义的对话框，要显示的关闭
+			break;
+		case R.id.bt_login_confirm:// 点击确定，登陆时
+			String inputPassword = et_login_pwd.getText().toString().trim();
+			if (TextUtils.isEmpty(inputPassword)) {
+				Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
+				return;
+			} else {
+				String realPassword = sp.getString("password", "");
+				if (!realPassword.equals(inputPassword)) {
+					Toast.makeText(this, "密码错误", Toast.LENGTH_SHORT).show();
+					return;
+				}else{
+					Log.i(TAG, "密码正确，进入手机防盗页面");
+				}
+			}
+			dialog.dismiss();
 			break;
 		}
 	}

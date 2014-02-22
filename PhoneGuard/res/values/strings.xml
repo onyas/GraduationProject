@@ -13,5 +13,7 @@
     <string name="confrimpwd">确认密码</string>
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
+    <string name="inputpwd">输入密码</string>
+    <string name="inputPhonePwd">请输入手机密码</string>
 
 </resources>
