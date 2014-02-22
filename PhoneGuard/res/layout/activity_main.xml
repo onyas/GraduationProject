@@ -6,13 +6,31 @@
     android:background="@color/backgroudcolor"
     android:orientation="vertical" >
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:background="@drawable/title_background"
+        android:orientation="vertical" 
+        android:gravity="center_vertical|center_horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:text="@string/phoneGuard"
+            android:textSize="24sp"
+            android:textColor="@color/textColor"
+            />
+    </LinearLayout>
+
     <!-- 3列 -->
+
     <GridView
         android:id="@+id/gv_main_screen"
-        android:numColumns="3"
-       android:layout_width="fill_parent"
-       android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:horizontalSpacing="10dip"
+        android:numColumns="3"
         android:verticalSpacing="10dip" >
     </GridView>
 
