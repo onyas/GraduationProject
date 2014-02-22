@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +19,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.onyas.phoneguard.R;
 import com.onyas.phoneguard.adpter.MainUIAdpter;
@@ -65,6 +67,11 @@ public class MainActivity extends Activity implements OnItemClickListener {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							String name = et_name.getText().toString().trim();
+							if(TextUtils.isEmpty(name))
+							{
+								Toast.makeText(getApplicationContext(), "名字不能为空", Toast.LENGTH_SHORT).show();
+								return;
+							}
 							Editor editor = sp.edit();
 							editor.putString("phonelost", name);
 							editor.commit();
