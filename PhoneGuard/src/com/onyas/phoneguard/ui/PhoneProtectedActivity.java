@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.onyas.phoneguard.R;
+import com.onyas.phoneguard.util.MD5Encoder;
 
 public class PhoneProtectedActivity extends Activity implements OnClickListener {
 
@@ -106,7 +107,7 @@ public class PhoneProtectedActivity extends Activity implements OnClickListener 
 					return;
 				} else {
 					Editor editor = sp.edit();
-					editor.putString("password", password);
+					editor.putString("password", MD5Encoder.encoder30(password));
 					editor.commit();
 					Toast.makeText(this, "√‹¬Î…Ë÷√≥…π¶", Toast.LENGTH_SHORT).show();
 				}
@@ -127,7 +128,7 @@ public class PhoneProtectedActivity extends Activity implements OnClickListener 
 				return;
 			} else {
 				String realPassword = sp.getString("password", "");
-				if (!realPassword.equals(inputPassword)) {
+				if (!realPassword.equals(MD5Encoder.encoder30(inputPassword))) {
 					Toast.makeText(this, "√‹¬Î¥ÌŒÛ", Toast.LENGTH_SHORT).show();
 					return;
 				}else{
