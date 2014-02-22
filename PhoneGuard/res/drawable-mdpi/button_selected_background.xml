@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- doc/API Guides/APP Resources/Resource Type/Drawable/shape -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+
+
+    <corners android:radius="2dip" >
+    </corners>
+	<solid android:color="#54E05B"/>
+</shape>

@@ -42,7 +42,7 @@
             android:layout_width="145dip"
             android:layout_height="40dip"
             android:layout_marginRight="5dip"
-            android:background="#ff0FD523"
+            android:background="@drawable/buttonok_selector"
             android:text="@string/confirm" />
 
         <Button
@@ -50,7 +50,7 @@
             android:layout_width="145dip"
             android:layout_height="40dip"
             android:layout_marginLeft="5dip"
-            android:background="#ffB0B0B0"
+            android:background="@drawable/button_selector"
             android:text="@string/cancel" />
     </LinearLayout>
 
