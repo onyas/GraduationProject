@@ -17,4 +17,10 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <!-- 自定义对话框 -->
+    <style name="MyDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/title_background</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    
 </resources>
