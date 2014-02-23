@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-public class CallPhoneReceiver extends BroadcastReceiver {
+public class OutgoingCallReceiver extends BroadcastReceiver {
 
 	private static final String TAG = "CallPhoneReceiver";
 
