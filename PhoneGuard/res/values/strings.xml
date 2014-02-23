@@ -25,4 +25,5 @@
 <string name="setup2">设置向导2/4</string>
 <string name="setup3">设置向导3/4</string>
 <string name="setup4">设置向导4/4</string>
+<string name="setupfinish">设置完成</string>
 </resources>

@@ -53,6 +53,7 @@ public class SetupGuide2Activity extends Activity implements OnClickListener {
 					boolean isChecked) {
 				if(isChecked){
 					cb_bind.setText("已经绑定");
+					saveSimSerialNum();
 				}else{
 					cb_bind.setText("没有绑定");
 					removeSimSerialNum();

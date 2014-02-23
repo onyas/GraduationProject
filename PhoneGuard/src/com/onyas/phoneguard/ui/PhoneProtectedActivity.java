@@ -12,8 +12,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.onyas.phoneguard.R;
 import com.onyas.phoneguard.util.MD5Encoder;
@@ -24,6 +28,8 @@ public class PhoneProtectedActivity extends Activity implements OnClickListener 
 	private EditText et_password, et_password_confirm, et_login_pwd;
 	private SharedPreferences sp;
 	private Dialog dialog;
+	private TextView tv_safe_num, tv_resetup;
+	private CheckBox cb_open_protect;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +126,10 @@ public class PhoneProtectedActivity extends Activity implements OnClickListener 
 					editor.putString("password", MD5Encoder.encoder30(password));
 					editor.commit();
 					Toast.makeText(this, "密码设置成功", Toast.LENGTH_SHORT).show();
+
+					// 第一次进入，所以直接进入设置引导界面
+					finish();
+					startSetupGuide();
 				}
 			}
 			dialog.dismiss();
@@ -145,19 +155,78 @@ public class PhoneProtectedActivity extends Activity implements OnClickListener 
 					Log.i(TAG, "密码正确，进入手机防盗页面");
 					if (isAlreadyGuided()) {
 						Log.i(TAG, "已经设置过向导，直接进入功能页面");
+
+						setContentView(R.layout.fun_lost_protect);
+						
+						tv_resetup = (TextView) findViewById(R.id.tv_resetup);
+						tv_safe_num = (TextView) findViewById(R.id.tv_safe_num);
+						cb_open_protect = (CheckBox) findViewById(R.id.cb_protect);
+
+						// 初始化状态 safeNumber
+						sp = getSharedPreferences("config", Context.MODE_PRIVATE);
+						String safeNum = sp.getString("safeNumber", "");
+						tv_safe_num.setText("手机安全号码：\n" + safeNum);
+
+						// 初始化checkbox的状态
+						boolean isprotecting = sp.getBoolean("isprotecting",
+								false);
+						System.out.println("isprotecting==="+isprotecting);
+						if (isprotecting) {
+							cb_open_protect.setChecked(true);
+							cb_open_protect.setText("手机防盗已开启");
+						} else {
+							cb_open_protect.setChecked(false);
+							cb_open_protect.setText("手机防盗末开启");
+						}
+						cb_open_protect
+								.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+									@Override
+									public void onCheckedChanged(
+											CompoundButton buttonView,
+											boolean isChecked) {
+										if (isChecked) {
+											cb_open_protect.setText("手机防盗已开启");
+											Editor editor = sp.edit();
+											editor.putBoolean("isprotecting",
+													true);
+											editor.commit();
+										} else {
+											cb_open_protect.setText("手机防盗末开启");
+											Editor editor = sp.edit();
+											editor.putBoolean("isprotecting",
+													false);
+											editor.commit();
+										}
+									}
+								});
+
+						// 进入设置引导
+						tv_resetup.setOnClickListener(this);
+
 					} else {
 						Log.i(TAG, "未设置过向导，进入向导设置界面");
 						finish();
-						Intent setup1Intent = new Intent(
-								getApplicationContext(),
-								SetupGuideActivity.class);
-						startActivity(setup1Intent);
+						startSetupGuide();
 					}
 				}
 			}
 			dialog.dismiss();
 			break;
+		case R.id.tv_resetup://进入设置引导
+			finish();
+			startSetupGuide();
+			break;
 		}
+	}
+
+	/**
+	 * 进入设置引导界面
+	 */
+	private void startSetupGuide() {
+		Intent setup1Intent = new Intent(getApplicationContext(),
+				SetupGuideActivity.class);
+		startActivity(setup1Intent);
 	}
 
 }

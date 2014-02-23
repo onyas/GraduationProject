@@ -16,7 +16,7 @@
         android:text="强烈建议你开启保护" />
 
     <CheckBox
-        android:id="@+id/cb_openProtect"
+        android:id="@+id/cb_open_protect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
@@ -33,9 +33,9 @@
 
         <ImageView style="@style/guide_image_status_off" />
 
-        <ImageView style="@style/guide_image_status_on" />
-
         <ImageView style="@style/guide_image_status_off" />
+
+        <ImageView style="@style/guide_image_status_on" />
     </LinearLayout>
 
     <RelativeLayout
@@ -57,13 +57,13 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/bt_next"
+            android:id="@+id/bt_setup_finish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:drawableRight="@drawable/next"
-            android:text="@string/next" />
+            android:text="@string/setupfinish" />
 
         <Button
             android:id="@+id/bt_previous"

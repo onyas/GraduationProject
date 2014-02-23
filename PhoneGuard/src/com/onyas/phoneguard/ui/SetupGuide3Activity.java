@@ -36,6 +36,12 @@ public class SetupGuide3Activity extends Activity implements OnClickListener {
 		bt_contact.setOnClickListener(this);
 		bt_next.setOnClickListener(this);
 		bt_previous.setOnClickListener(this);
+		
+		
+		//³õÊ¼»¯EditTextµÄ×´Ì¬
+		String safeNumber = sp.getString("safeNumber", "");
+		et_safe_num.setText(safeNumber);
+		
 
 	}
 
