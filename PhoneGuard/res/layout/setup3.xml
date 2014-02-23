@@ -22,12 +22,13 @@
         android:orientation="vertical" >
 
         <EditText
+            android:id="@+id/et_safe_number"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="请输入或选择安全手机号码" />
 
         <Button
-            android:id="@+id/bt_selectContact"
+            android:id="@+id/bt_select_contact"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/select_contact" />

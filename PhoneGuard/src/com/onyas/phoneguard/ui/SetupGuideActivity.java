@@ -32,7 +32,7 @@ public class SetupGuideActivity extends Activity implements OnClickListener {
 			finish();
 			startActivity(intent);
 			//Activity切换时的动画效果
-			overridePendingTransition(R.anim.anim_in, R.anim.anim_out);
+			overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
 			break;
 		}
 	}

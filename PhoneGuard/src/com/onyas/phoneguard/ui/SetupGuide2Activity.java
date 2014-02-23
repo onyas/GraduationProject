@@ -80,14 +80,14 @@ public class SetupGuide2Activity extends Activity implements OnClickListener {
 			finish();
 			startActivity(intent3);
 			// Activity切换时的动画效果
-			overridePendingTransition(R.anim.anim_in, R.anim.anim_out);
+			overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
 			break;
 		case R.id.bt_previous:
 			Intent intent1 = new Intent(this, SetupGuideActivity.class);
 			finish();
 			startActivity(intent1);
 			// Activity切换时的动画效果
-			overridePendingTransition(R.anim.anim_in, R.anim.anim_out);
+			overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
 			break;
 		}
 
