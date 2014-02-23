@@ -3,6 +3,7 @@ package com.onyas.phoneguard.ui;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ public class PhoneProtectedActivity extends Activity implements OnClickListener 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		if (isAlreadySavePwd()) {
+		if (isAlreadySavedPwd()) {
 			Log.i(TAG, "存入密码，正常登录");
 			showNormalDialog();
 		} else {
@@ -80,7 +81,7 @@ public class PhoneProtectedActivity extends Activity implements OnClickListener 
 	 * 
 	 * @return
 	 */
-	private boolean isAlreadySavePwd() {
+	private boolean isAlreadySavedPwd() {
 		sp = getSharedPreferences("config", Context.MODE_PRIVATE);
 		String pwd = sp.getString("password", null);
 		if (pwd == null) {
@@ -88,6 +89,15 @@ public class PhoneProtectedActivity extends Activity implements OnClickListener 
 		} else {
 			return true;
 		}
+	}
+
+	/**
+	 * 判断用户是否已经激活了设置引导
+	 * 
+	 * @return
+	 */
+	private boolean isAlreadyGuided() {
+		return sp.getBoolean("alreadSetup", false);
 	}
 
 	@Override
@@ -131,8 +141,18 @@ public class PhoneProtectedActivity extends Activity implements OnClickListener 
 				if (!realPassword.equals(MD5Encoder.encoder30(inputPassword))) {
 					Toast.makeText(this, "密码错误", Toast.LENGTH_SHORT).show();
 					return;
-				}else{
+				} else {
 					Log.i(TAG, "密码正确，进入手机防盗页面");
+					if (isAlreadyGuided()) {
+						Log.i(TAG, "已经设置过向导，直接进入功能页面");
+					} else {
+						Log.i(TAG, "未设置过向导，进入向导设置界面");
+						finish();
+						Intent setup1Intent = new Intent(
+								getApplicationContext(),
+								SetupGuideActivity.class);
+						startActivity(setup1Intent);
+					}
 				}
 			}
 			dialog.dismiss();

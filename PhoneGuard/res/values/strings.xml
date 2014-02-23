@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">PhoneGuard</string>
+    <string name="app_name">手机卫士</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="splash_version">版本号</string>
@@ -15,5 +15,14 @@
     <string name="cancel">取消</string>
     <string name="inputpwd">输入密码</string>
     <string name="inputPhonePwd">请输入手机密码</string>
-
+    <string name="previous">上一步</string>
+    <string name="next">下一步</string>
+    <string name="bt_bind">绑定</string>
+    <string name="cb_unband">没有绑定</string>
+    <string name="select_contact">选择联系人</string>
+    <string name="unopenprotect">没有开启保护</string>
+    <string name="setup1">设置向导1/4</string>
+<string name="setup2">设置向导2/4</string>
+<string name="setup3">设置向导3/4</string>
+<string name="setup4">设置向导4/4</string>
 </resources>

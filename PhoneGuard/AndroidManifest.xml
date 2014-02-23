@@ -15,12 +15,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/icon5"
         android:theme="@style/AppTheme" >
         <uses-library android:name="android.test.runner" />
 
@@ -33,18 +32,37 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.onyas.phoneguard.ui.MainActivity" 
-            android:theme="@android:style/Theme.Black.NoTitleBar">
+        <activity
+            android:name="com.onyas.phoneguard.ui.MainActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
         </activity>
-        <activity android:name="com.onyas.phoneguard.ui.PhoneProtectedActivity" android:label="@string/phoneProtectd" >
+        <activity
+            android:name="com.onyas.phoneguard.ui.PhoneProtectedActivity"
+            android:label="@string/phoneProtectd" >
         </activity>
-        <receiver 
-            android:name="com.onyas.phoneguard.receiver.CallPhoneReceiver"
-            >
-            <intent-filter android:priority="1000">
-				<action android:name="android.intent.action.NEW_OUTGOING_CALL"/>                
+
+        <receiver android:name="com.onyas.phoneguard.receiver.CallPhoneReceiver" >
+            <intent-filter android:priority="1000" >
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name="com.onyas.phoneguard.ui.SetupGuideActivity"
+            android:label="@string/setup1" >
+        </activity>
+        <activity
+            android:name="com.onyas.phoneguard.ui.SetupGuide2Activity"
+            android:label="@string/setup2" >
+        </activity>
+        <activity
+            android:name="com.onyas.phoneguard.ui.SetupGuide3Activity"
+            android:label="@string/setup3" >
+        </activity>
+        <activity
+            android:name="com.onyas.phoneguard.ui.SetupGuide4Activity"
+            android:label="@string/setup4" >
+        </activity>
     </application>
 
 </manifest>

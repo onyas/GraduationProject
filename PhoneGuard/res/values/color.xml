@@ -2,5 +2,7 @@
 <resources>
     <color name="backgroudcolor">#ff404040</color>
     <color name="textColor">#ffD0D0D0</color>
+    <color name="textGreenColor">#ff5FF600</color>
+    
     
 </resources>
