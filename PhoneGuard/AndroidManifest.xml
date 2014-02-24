@@ -87,8 +87,14 @@
             <intent-filter android:priority="1000">
 				<action android:name="android.provider.Telephony.SMS_RECEIVED"/>
             </intent-filter>
-            
         </receiver>
+        		<receiver android:name="com.onyas.phoneguard.receiver.MyAdminReceiver">
+			<meta-data android:name="android.app.device_admin"
+				android:resource="@xml/my_admin" />
+			<intent-filter>
+				<action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+			</intent-filter>
+		</receiver>
     </application>
 
 </manifest>

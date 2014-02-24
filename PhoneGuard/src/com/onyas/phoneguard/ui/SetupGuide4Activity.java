@@ -1,6 +1,8 @@
 package com.onyas.phoneguard.ui;
 
 import android.app.Activity;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +17,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Toast;
 
 import com.onyas.phoneguard.R;
+import com.onyas.phoneguard.receiver.MyAdminReceiver;
 
 public class SetupGuide4Activity extends Activity implements OnClickListener {
 
@@ -64,8 +67,6 @@ public class SetupGuide4Activity extends Activity implements OnClickListener {
 					}
 				});
 
-		
-		
 	}
 
 	@Override
@@ -98,6 +99,19 @@ public class SetupGuide4Activity extends Activity implements OnClickListener {
 		editor.putBoolean("alreadSetup", true);// 完成设置引导
 		editor.putBoolean("isprotecting", true);// 开启手机保护
 		editor.commit();
+
+		//注册广播接受者为admin设备
+		DevicePolicyManager manager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+		ComponentName mAdminName = new ComponentName(this, MyAdminReceiver.class);
+		if (manager != null) {
+			if (!manager.isAdminActive(mAdminName)) {
+				Intent intent = new Intent(
+						DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+				intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN,
+						mAdminName);
+				startActivity(intent);
+			}
+		}
 	}
 
 }
