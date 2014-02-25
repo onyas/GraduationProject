@@ -22,7 +22,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import com.onyas.phoneguard.R;
 import com.onyas.phoneguard.util.MD5Encoder;
 
-public class PhoneProtectedActivity extends Activity implements OnClickListener {
+public class Fun1PhoneProtectedActivity extends Activity implements OnClickListener {
 
 	private static final String TAG = "PhoneProtectedActivity";
 	private EditText et_password, et_password_confirm, et_login_pwd;
@@ -156,7 +156,7 @@ public class PhoneProtectedActivity extends Activity implements OnClickListener 
 					if (isAlreadyGuided()) {
 						Log.i(TAG, "已经设置过向导，直接进入功能页面");
 
-						setContentView(R.layout.fun_lost_protect);
+						setContentView(R.layout.fun_1lost_protect);
 						
 						tv_resetup = (TextView) findViewById(R.id.tv_resetup);
 						tv_safe_num = (TextView) findViewById(R.id.tv_safe_num);

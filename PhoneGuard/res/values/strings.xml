@@ -26,4 +26,6 @@
 <string name="setup3">设置向导3/4</string>
 <string name="setup4">设置向导4/4</string>
 <string name="setupfinish">设置完成</string>
+<string name="atool">高级工具</string>
+<string name="query_attribue">归属地查询</string>
 </resources>

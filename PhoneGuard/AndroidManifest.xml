@@ -47,7 +47,7 @@
             android:theme="@android:style/Theme.Black.NoTitleBar" >
         </activity>
         <activity
-            android:name="com.onyas.phoneguard.ui.PhoneProtectedActivity"
+            android:name="com.onyas.phoneguard.ui.Fun1PhoneProtectedActivity"
             android:label="@string/phoneProtectd" >
         </activity>
 
@@ -70,6 +70,15 @@
         <activity
             android:name="com.onyas.phoneguard.ui.SelectContactsActivity"
             android:label="@string/select_contact" >
+        </activity>
+        <activity 
+            android:name="com.onyas.phoneguard.ui.Fun8AtoolsActivity"
+            android:label="@string/atool"
+            ></activity>
+        
+        <activity android:name="com.onyas.phoneguard.ui.PhoneAttributeActivity"
+            android:label="@string/query_attribue"
+            >
         </activity>
         
         

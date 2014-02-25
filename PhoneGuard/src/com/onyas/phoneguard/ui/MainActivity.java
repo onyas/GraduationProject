@@ -108,11 +108,15 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		Log.i(TAG, "当前条目"+position);
 		switch (position) {
 		case 0://手机防盗功能
-			Log.i(TAG, "手机防盗功能");
-			Intent phoneIntent = new Intent(getApplicationContext(), PhoneProtectedActivity.class);
+			Log.i(TAG, "进入手机防盗功能");
+			Intent phoneIntent = new Intent(MainActivity.this, Fun1PhoneProtectedActivity.class);
 			startActivity(phoneIntent);
 			break;
-
+		case 7://高级工具
+			Log.i(TAG, "进入高级工具");
+			Intent fun8 = new Intent(MainActivity.this, Fun8AtoolsActivity.class);
+			startActivity(fun8);
+			break;
 		default:
 			break;
 		}
