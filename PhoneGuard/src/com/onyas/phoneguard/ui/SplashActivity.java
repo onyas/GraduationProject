@@ -188,7 +188,7 @@ public class SplashActivity extends Activity {
 	private void showUpdateDialog() {
 		AlertDialog.Builder builder = new Builder(this);
 		builder.setIcon(R.drawable.icon5);
-		builder.setTitle("升级得醒");
+		builder.setTitle("升级提醒");
 		builder.setMessage(info.getDescription());
 		builder.setCancelable(false);
 		builder.setPositiveButton("确定", new OnClickListener() {
