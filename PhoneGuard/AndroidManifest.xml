@@ -81,6 +81,11 @@
             >
         </activity>
         
+        <activity 
+            android:name="com.onyas.phoneguard.ui.ChangePositionActivity"
+			android:theme="@android:style/Theme.NoTitleBar"
+            ></activity>
+        
         
         <service android:name="com.onyas.phoneguard.service.PhoneNumberService"></service>
         

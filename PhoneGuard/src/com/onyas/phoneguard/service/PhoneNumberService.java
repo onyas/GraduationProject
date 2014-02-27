@@ -109,6 +109,10 @@ public class PhoneNumberService extends Service {
 		Log.i(TAG, "¼ÓÔØµÄ±³¾°Îª+"+resid);
 		tv.setBackgroundResource(resid);
 		tv.setText(address);
+		
+		sp = getSharedPreferences("config", Context.MODE_PRIVATE);
+		int x = sp.getInt("left", 40);
+		int y = sp.getInt("top", 0);
 
 		wm = (WindowManager) getSystemService(WINDOW_SERVICE);
 		wm.addView(tv, params);

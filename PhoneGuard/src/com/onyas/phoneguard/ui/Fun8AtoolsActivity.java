@@ -22,7 +22,7 @@ import com.onyas.phoneguard.service.PhoneNumberService;
 
 public class Fun8AtoolsActivity extends Activity implements OnClickListener {
 
-	private TextView tv_atool_query,tv_atool_serstate,tv_atool_bgcolor;
+	private TextView tv_atool_query,tv_atool_serstate,tv_atool_bgcolor,tv_atool_locate;
 	private CheckBox cb_atool_change;
 	private Intent serviceIntent;
 	private SharedPreferences sp;
@@ -36,6 +36,7 @@ public class Fun8AtoolsActivity extends Activity implements OnClickListener {
 		sp = getSharedPreferences("config", Context.MODE_PRIVATE);
 		
 		tv_atool_query = (TextView) findViewById(R.id.tv_atool_query);
+		tv_atool_locate = (TextView) findViewById(R.id.tv_atool_locate);
 		tv_atool_serstate = (TextView) findViewById(R.id.tv_atool_servicestate);
 		tv_atool_bgcolor = (TextView) findViewById(R.id.tv_atool_bgcolor);
 		cb_atool_change = (CheckBox) findViewById(R.id.cb_atool_servicechange);
@@ -61,7 +62,7 @@ public class Fun8AtoolsActivity extends Activity implements OnClickListener {
 		
 		tv_atool_query.setOnClickListener(this);
 		tv_atool_bgcolor.setOnClickListener(this);
-		
+		tv_atool_locate.setOnClickListener(this);
 	}
 
 	@Override
@@ -92,6 +93,10 @@ public class Fun8AtoolsActivity extends Activity implements OnClickListener {
 				}
 			});
 			builder.create().show();
+			break;
+		case R.id.tv_atool_locate:
+			Intent intent = new Intent(this,ChangePositionActivity.class);
+			startActivity(intent);
 			break;
 		}
 	}
