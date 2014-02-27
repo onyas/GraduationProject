@@ -9,7 +9,10 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,6 +72,12 @@ public class PhoneAttributeActivity extends Activity {
 
 			//到数据库中查询
 			String num = et_query_number.getText().toString().trim();
+			//如果电话号码为空，则输入框左右晃动
+			if(TextUtils.isEmpty(num)){
+				Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+				et_query_number.startAnimation(shake);
+				return;
+			}
 			String address = PhoneAddressEngine.getAddress(num);
 			tv_phone_attribute.setText(address);
 			
