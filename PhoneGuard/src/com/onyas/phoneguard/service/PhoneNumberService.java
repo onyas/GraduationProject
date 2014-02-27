@@ -1,7 +1,9 @@
 package com.onyas.phoneguard.service;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.telephony.PhoneStateListener;
@@ -11,6 +13,7 @@ import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.TextView;
 
+import com.onyas.phoneguard.R;
 import com.onyas.phoneguard.engine.PhoneAddressEngine;
 
 public class PhoneNumberService extends Service {
@@ -20,10 +23,13 @@ public class PhoneNumberService extends Service {
 	private TelephonyManager tm;
 	private WindowManager wm;
 	private TextView tv;
+	private SharedPreferences sp;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
+
+		sp = getSharedPreferences("config", Context.MODE_PRIVATE);
 
 		listener = new MyPhoneStateListener();
 
@@ -81,8 +87,29 @@ public class PhoneNumberService extends Service {
 		params.type = WindowManager.LayoutParams.TYPE_TOAST;
 
 		tv = new TextView(getApplicationContext());
+		int id = sp.getInt("locatebgcolor", 0);
+		int resid = R.drawable.call_locate_blue;
+		switch (id) {
+		case 0:
+			resid = R.drawable.call_locate_white;
+			break;
+		case 1:
+			resid = R.drawable.call_locate_orange;
+			break;
+		case 2:
+			resid = R.drawable.call_locate_blue;
+			break;
+		case 3:
+			resid = R.drawable.call_locate_gray;
+			break;
+		case 4:
+			resid = R.drawable.call_locate_green;
+			break;
+		}
+		Log.i(TAG, "¼ÓÔØµÄ±³¾°Îª+"+resid);
+		tv.setBackgroundResource(resid);
 		tv.setText(address);
-		
+
 		wm = (WindowManager) getSystemService(WINDOW_SERVICE);
 		wm.addView(tv, params);
 	}
