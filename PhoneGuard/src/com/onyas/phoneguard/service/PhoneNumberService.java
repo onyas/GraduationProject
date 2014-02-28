@@ -9,6 +9,7 @@ import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.TextView;
@@ -86,6 +87,15 @@ public class PhoneNumberService extends Service {
 		params.format = PixelFormat.TRANSLUCENT;
 		params.type = WindowManager.LayoutParams.TYPE_TOAST;
 
+		params.gravity=Gravity.TOP |Gravity.LEFT;//设置为左上角对齐
+		
+		sp = getSharedPreferences("config", Context.MODE_PRIVATE);
+		int x = sp.getInt("left", 40);
+		int y = sp.getInt("top", 0);
+		params.x = x;//设置来电显示的左边距离
+		params.y = y;//设置来电显示的上边距离
+		
+		
 		tv = new TextView(getApplicationContext());
 		int id = sp.getInt("locatebgcolor", 0);
 		int resid = R.drawable.call_locate_blue;
@@ -110,10 +120,6 @@ public class PhoneNumberService extends Service {
 		tv.setBackgroundResource(resid);
 		tv.setText(address);
 		
-		sp = getSharedPreferences("config", Context.MODE_PRIVATE);
-		int x = sp.getInt("left", 40);
-		int y = sp.getInt("top", 0);
-
 		wm = (WindowManager) getSystemService(WINDOW_SERVICE);
 		wm.addView(tv, params);
 	}
