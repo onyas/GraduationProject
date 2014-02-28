@@ -30,6 +30,8 @@ public class PhoneAddressEngine {
 
 		if (num.matches(pattern)) {// ÊÖ»úºÅÂë
 			db = AddressDao.getAddressDB(dbpath);
+			if(db==null)
+				return "";
 			if (db.isOpen()) {
 				Cursor cursor = db.rawQuery(
 						"select city from info where mobileprefix=?",
