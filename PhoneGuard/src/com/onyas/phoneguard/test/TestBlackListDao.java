@@ -1,0 +1,37 @@
+package com.onyas.phoneguard.test;
+
+import java.util.List;
+
+import android.test.AndroidTestCase;
+import android.util.Log;
+
+import com.onyas.phoneguard.db.dao.BlackListDao;
+
+public class TestBlackListDao extends AndroidTestCase {
+
+	private static final String TAG = "TestBlackListDao";
+
+	public void testadd(){
+		BlackListDao dao = new BlackListDao(getContext());
+		for(int i=0;i<10;i++)
+		{
+			dao.add("1381234567"+i);
+		}
+	}
+	
+	public void testfind(){
+		BlackListDao dao = new BlackListDao(getContext());
+		boolean b = dao.find("13812345679");
+		assertEquals(true, b);
+	}
+	
+	public void testfindall(){
+		BlackListDao dao = new BlackListDao(getContext());
+		List<String> list = dao.findAll();
+		for(int i=0;i<list.size();i++){
+			Log.i(TAG, list.get(i));
+		}
+		assertEquals(10, list.size());
+	}
+	
+}
