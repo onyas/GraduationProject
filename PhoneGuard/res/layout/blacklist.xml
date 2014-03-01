@@ -24,7 +24,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dip"
             android:onClick="click"
+            android:background="@drawable/button_selector"
             android:text="@string/add"
+            
             android:textSize="20sp" />
     </LinearLayout>
 
