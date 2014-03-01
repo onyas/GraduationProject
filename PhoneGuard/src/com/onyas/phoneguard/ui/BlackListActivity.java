@@ -100,6 +100,13 @@ public class BlackListActivity extends Activity {
 				}else{
 					blackListDao.add(number);
 					//添加完电话号码以后，要更新listView;
+					//第一种方法,缺点是要重新刷新整个界面
+//					numbers = blackListDao.findAll();
+//					adapter = new BlackListItemAdapter();
+//					lv_blacklist.setAdapter(adapter);
+					//第二种方法
+					refreshList();
+					
 				}
 			}
 		});
@@ -113,6 +120,16 @@ public class BlackListActivity extends Activity {
 		});
 		
 		builder.create().show();
+	}
+
+
+	/**
+	 * 重新ListView
+	 */
+	private void refreshList() {
+		numbers = blackListDao.findAll();
+		//让适配器通知listview更新数据库
+		adapter.notifyDataSetChanged();
 	}
 
 }
