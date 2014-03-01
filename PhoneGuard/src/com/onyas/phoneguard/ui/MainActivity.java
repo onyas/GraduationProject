@@ -112,6 +112,11 @@ public class MainActivity extends Activity implements OnItemClickListener {
 			Intent phoneIntent = new Intent(MainActivity.this, Fun1PhoneProtectedActivity.class);
 			startActivity(phoneIntent);
 			break;
+		case 1://通讯卫士功能
+			Log.i(TAG, "进入通讯卫士功能");
+			Intent TonxueIntent = new Intent(MainActivity.this, BlackListActivity.class);
+			startActivity(TonxueIntent);
+			break;
 		case 7://高级工具
 			Log.i(TAG, "进入高级工具");
 			Intent fun8 = new Intent(MainActivity.this, Fun8AtoolsActivity.class);

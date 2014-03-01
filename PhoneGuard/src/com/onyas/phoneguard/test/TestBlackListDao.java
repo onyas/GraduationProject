@@ -13,9 +13,9 @@ public class TestBlackListDao extends AndroidTestCase {
 
 	public void testadd(){
 		BlackListDao dao = new BlackListDao(getContext());
-		for(int i=0;i<10;i++)
+		for(int i=10;i<40;i++)
 		{
-			dao.add("1381234567"+i);
+			dao.add("13812345"+i);
 		}
 	}
 	

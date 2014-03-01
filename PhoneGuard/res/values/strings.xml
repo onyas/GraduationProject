@@ -7,6 +7,7 @@
     <string name="splash_version">版本号</string>
     <string name="test">文字测试</string>
     <string name="phoneGuard">手机卫士</string>
+    <string name="blacklist">手机黑名单管理</string>
     <string name="phoneProtectd">手机防盗</string>
     <string name="setpwd">设置密码</string>
     <string name="firsteEntryTip">请设置手机密码</string>
@@ -22,10 +23,11 @@
     <string name="select_contact">选择联系人</string>
     <string name="unopenprotect">没有开启保护</string>
     <string name="setup1">设置向导1/4</string>
-<string name="setup2">设置向导2/4</string>
-<string name="setup3">设置向导3/4</string>
-<string name="setup4">设置向导4/4</string>
-<string name="setupfinish">设置完成</string>
-<string name="atool">高级工具</string>
-<string name="query_attribue">归属地查询</string>
+    <string name="setup2">设置向导2/4</string>
+    <string name="setup3">设置向导3/4</string>
+    <string name="setup4">设置向导4/4</string>
+    <string name="setupfinish">设置完成</string>
+    <string name="atool">高级工具</string>
+    <string name="query_attribue">归属地查询</string>
+	<string name="add">添加</string>
 </resources>
