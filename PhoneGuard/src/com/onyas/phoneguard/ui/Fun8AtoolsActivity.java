@@ -18,6 +18,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.onyas.phoneguard.R;
+import com.onyas.phoneguard.service.BackupSmsService;
 import com.onyas.phoneguard.service.PhoneNumberService;
 
 public class Fun8AtoolsActivity extends Activity implements OnClickListener {
@@ -105,7 +106,8 @@ public class Fun8AtoolsActivity extends Activity implements OnClickListener {
 		case R.id.tv_atool_sms_backup:
 			//备份短信是个费时的操作，所以需要放在子线程里面进行，但如果这时手机内存不足，应用程序处于后台时行时，
 			//该子线程会被回收掉，所以为了提升应用程序的优先级，我们用service组件来完成短信的备份
-			
+			Intent service = new Intent(this,BackupSmsService.class);
+			startService(service);
 			break;
 		case R.id.tv_atool_sms_restore:
 			break;
