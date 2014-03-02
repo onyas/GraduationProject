@@ -26,6 +26,8 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
 
     <application
         android:allowBackup="true"
@@ -88,6 +90,8 @@
         </activity>
 
         <service android:name="com.onyas.phoneguard.service.PhoneNumberService" >
+        </service>
+        <service android:name="com.onyas.phoneguard.service.BackupSmsService" >
         </service>
 
         <receiver android:name="com.onyas.phoneguard.receiver.OutgoingCallReceiver" >
