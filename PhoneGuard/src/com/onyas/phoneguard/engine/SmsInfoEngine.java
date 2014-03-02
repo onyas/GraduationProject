@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.xmlpull.v1.XmlPullParser;
 
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -63,8 +64,9 @@ public class SmsInfoEngine {
 	 * @param path
 	 *            文件的路径
 	 */
-	public void restoreSms(String path) throws Exception{
+	public void restoreSms(String path,ProgressDialog pd) throws Exception{
 			ContentValues values=null;
+			int current=0;
 			File file = new File(path);
 			FileInputStream fis = new FileInputStream(file);
 			XmlPullParser parser = Xml.newPullParser();
@@ -84,12 +86,18 @@ public class SmsInfoEngine {
 						values.put("type", parser.nextText());
 					}else if("body".equals(parser.getName())){
 						values.put("body", parser.nextText());
+					}else if("smss".equals(parser.getName())){
+						String count = parser.getAttributeValue(null, "count");//得到一共多少短信
+						pd.setMax(Integer.parseInt(count));
 					}
 					break;
 				case XmlPullParser.END_TAG:
 					if ("sms".equals(parser.getName())) {
 						ContentResolver resolver = context.getContentResolver();
 						resolver.insert(Uri.parse("content://sms/"), values);
+						
+						current++;
+						pd.setProgress(current);
 					}
 					break;
 				}

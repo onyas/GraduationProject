@@ -42,7 +42,8 @@ public class BackupSmsService extends Service {
 					serializer.startDocument("utf-8", true);
 					
 					serializer.startTag(null, "smss");
-					
+					//count属性用于记录一共有多少短信
+					serializer.attribute(null, "count",smsinfos.size()+"");
 					
 					for(SmsInfo info :smsinfos){
 						serializer.startTag(null, "sms");

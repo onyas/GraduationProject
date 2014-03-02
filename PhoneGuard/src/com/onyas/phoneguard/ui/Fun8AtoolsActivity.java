@@ -124,13 +124,14 @@ public class Fun8AtoolsActivity extends Activity implements OnClickListener {
 			// 读取备份的xml文件，解析里面的信息，插入到短信应用里面
 			final ProgressDialog pd = new ProgressDialog(this);
 			pd.setCancelable(false);
+			pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 			pd.setMessage("正在还原短信");
 			pd.show();
 			smsInfoEngine = new SmsInfoEngine(this);
 			new Thread() {
 				public void run() {
 					try {
-						smsInfoEngine.restoreSms("/sdcard/smsbackup.xml");
+						smsInfoEngine.restoreSms("/sdcard/smsbackup.xml",pd);
 						pd.dismiss();
 						Looper.prepare();
 						Toast.makeText(Fun8AtoolsActivity.this, "还原成功",
