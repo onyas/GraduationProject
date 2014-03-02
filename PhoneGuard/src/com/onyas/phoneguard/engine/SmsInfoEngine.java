@@ -1,12 +1,18 @@
 package com.onyas.phoneguard.engine;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.xmlpull.v1.XmlPullParser;
+
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Xml;
 
 import com.onyas.phoneguard.domain.SmsInfo;
 
@@ -45,10 +51,51 @@ public class SmsInfoEngine {
 					+ type + ",date=" + date + ",body=" + body);
 			info = new SmsInfo(id, address, date, type, body);
 			infos.add(info);
-			info=null;
+			info = null;
 		}
 
 		return infos;
+	}
+
+	/**
+	 * 从文件还原短信
+	 * 
+	 * @param path
+	 *            文件的路径
+	 */
+	public void restoreSms(String path) throws Exception{
+			ContentValues values=null;
+			File file = new File(path);
+			FileInputStream fis = new FileInputStream(file);
+			XmlPullParser parser = Xml.newPullParser();
+			parser.setInput(fis, "utf-8");
+			int type = parser.getEventType();
+			while (type != XmlPullParser.END_DOCUMENT) {
+
+				switch (type) {
+				case XmlPullParser.START_TAG:
+					if ("sms".equals(parser.getName())) {
+						values = new ContentValues();
+					}else if("address".equals(parser.getName())){
+						values.put("address", parser.nextText());
+					}else if("date".equals(parser.getName())){
+						values.put("date", parser.nextText());
+					}else if("type".equals(parser.getName())){
+						values.put("type", parser.nextText());
+					}else if("body".equals(parser.getName())){
+						values.put("body", parser.nextText());
+					}
+					break;
+				case XmlPullParser.END_TAG:
+					if ("sms".equals(parser.getName())) {
+						ContentResolver resolver = context.getContentResolver();
+						resolver.insert(Uri.parse("content://sms/"), values);
+					}
+					break;
+				}
+				type = parser.next();
+			}
+	
 	}
 
 }
