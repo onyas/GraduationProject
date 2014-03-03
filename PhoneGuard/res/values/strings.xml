@@ -30,4 +30,5 @@
     <string name="atool">高级工具</string>
     <string name="query_attribue">归属地查询</string>
 	<string name="add">添加</string>
+	<string name="app_manager">应用程序管理</string>
 </resources>
