@@ -3,7 +3,6 @@ package com.onyas.phoneguard.adpter;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -15,7 +14,7 @@ import com.onyas.phoneguard.domain.AppInfo;
 
 public class AppManagerAdapter extends BaseAdapter {
 
-	private static final String TAG = "AppManagerAdapter";
+//	private static final String TAG = "AppManagerAdapter";
 	private List<AppInfo> infos;
 	private Context context;
 	private static ImageView iv;
@@ -51,11 +50,11 @@ public class AppManagerAdapter extends BaseAdapter {
 		AppInfo appinfo = infos.get(position);
 		if (convertView == null) {
 			// 通过资源文件，创建view对象
-			Log.i(TAG, "通过资源文件，创建view对象");
+//			Log.i(TAG, "通过资源文件，创建view对象");
 			view = View.inflate(context, R.layout.fun_3app_item, null);
 		} else {
 			// 使用历史缓存view对象，不用反复调用inflate方法
-			Log.i(TAG, "使用历史缓存view对象");
+//			Log.i(TAG, "使用历史缓存view对象");
 			view = convertView;
 		}
 		iv = (ImageView) view.findViewById(R.id.iv_appmanager_function);
