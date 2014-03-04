@@ -8,7 +8,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import com.onyas.phoneguard.domain.AppInfo;
 
@@ -45,12 +44,12 @@ public class AppInfoEngine {
 			AppInfo appinfo = new AppInfo(icon, appname, packagename,
 					isSystemApp);
 
-			Log.i(TAG, packagename + "," + appname);
+		/*	Log.i(TAG, packagename + "," + appname);
 			if (filterApp(info.applicationInfo)) {
 				Log.i(TAG, "三方应用");
 			} else {
 				Log.i(TAG, "系统应用");
-			}
+			}*/
 			appInfos.add(appinfo);
 		}
 		return appInfos;

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_pupupwindow"
+    android:layout_width="230dip"
+    android:layout_height="70dip"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:id="@+id/ll_pupup_uninstall"
+        android:layout_width="70dip"
+        android:layout_height="70dip"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="35dip"
+            android:layout_height="35dip"
+            android:src="@drawable/img1" />
+
+        <TextView
+            android:layout_width="35dip"
+            android:layout_height="20dip"
+            android:text="卸载" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="1dip"
+        android:layout_height="40dip"
+        android:background="#ff00ff88" />
+
+    <LinearLayout
+        android:id="@+id/ll_pupup_start"
+        android:layout_width="70dip"
+        android:layout_height="70dip"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="35dip"
+            android:layout_height="35dip"
+            android:src="@drawable/img2" />
+
+        <TextView
+            android:layout_width="35dip"
+            android:layout_height="20dip"
+            android:text="运行" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="1dip"
+        android:layout_height="40dip"
+        android:background="#ff00ff88" />
+
+    <LinearLayout
+        android:id="@+id/ll_pupup_share"
+        android:layout_width="70dip"
+        android:layout_height="70dip"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="35dip"
+            android:layout_height="35dip"
+            android:src="@drawable/img3" />
+
+        <TextView
+            android:layout_width="35dip"
+            android:layout_height="20dip"
+            android:text="分享" />
+    </LinearLayout>
+
+</LinearLayout>
