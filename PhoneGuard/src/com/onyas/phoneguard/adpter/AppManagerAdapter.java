@@ -26,6 +26,11 @@ public class AppManagerAdapter extends BaseAdapter {
 		this.context = context;
 	}
 
+	
+	public void setAppInfos(List<AppInfo> infos){
+		this.infos = infos;
+	}
+	
 	@Override
 	public int getCount() {
 		return infos.size();
