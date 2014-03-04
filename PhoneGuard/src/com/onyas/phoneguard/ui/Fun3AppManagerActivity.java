@@ -181,6 +181,13 @@ public class Fun3AppManagerActivity extends Activity implements OnClickListener 
 			break;
 		case R.id.ll_pupup_share:// 分享
 
+			Intent shareIntent = new Intent();
+			shareIntent.setAction(Intent.ACTION_SEND);
+			shareIntent.setType("text/plain");
+			shareIntent.putExtra(Intent.EXTRA_SUBJECT, "分享");
+			shareIntent.putExtra(Intent.EXTRA_TEXT, "hi,有一个好的应用程序,"+appinfo.getAppname());
+			shareIntent=Intent.createChooser(shareIntent, "分享");
+			startActivity(shareIntent);
 			break;
 		}
 	}
