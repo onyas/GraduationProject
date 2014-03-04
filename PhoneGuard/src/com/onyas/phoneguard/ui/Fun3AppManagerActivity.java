@@ -8,6 +8,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,6 +34,7 @@ import com.onyas.phoneguard.engine.AppInfoEngine;
 public class Fun3AppManagerActivity extends Activity implements OnClickListener {
 
 	protected static final int LOADFINSH = 10;
+	private static final int IN_ALL_APPS = 11;
 	private ListView lv_listView;
 	private LinearLayout ll_loading;
 	private AppInfoEngine appEngine;
@@ -66,17 +68,7 @@ public class Fun3AppManagerActivity extends Activity implements OnClickListener 
 		ll_loading = (LinearLayout) findViewById(R.id.ll_appmanager_loading);
 		lv_listView = (ListView) findViewById(R.id.lv_appmanager_list);
 
-		ll_loading.setVisibility(View.VISIBLE);
-		new Thread() {
-			public void run() {
-
-				appEngine = new AppInfoEngine(Fun3AppManagerActivity.this);
-				appinfos = appEngine.getAllApps();
-				Message msg = new Message();
-				msg.what = LOADFINSH;
-				handler.sendMessage(msg);
-			};
-		}.start();
+		refreshUI(IN_ALL_APPS);
 
 		lv_listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -143,6 +135,22 @@ public class Fun3AppManagerActivity extends Activity implements OnClickListener 
 		});
 	}
 
+	/**
+	 * 开启子线程，更新UI界面
+	 */
+	private void refreshUI(int whichUI) {
+		ll_loading.setVisibility(View.VISIBLE);
+		new Thread() {
+			public void run() {
+				appEngine = new AppInfoEngine(Fun3AppManagerActivity.this);
+				appinfos = appEngine.getAllApps();
+				Message msg = new Message();
+				msg.what = LOADFINSH;
+				handler.sendMessage(msg);
+			};
+		}.start();
+	}
+
 	private void dismissPopupWindow() {
 		// 保证只有一个popupWindow的实例存在
 		if (popupWindow != null) {
@@ -153,15 +161,24 @@ public class Fun3AppManagerActivity extends Activity implements OnClickListener 
 
 	@Override
 	public void onClick(View v) {
-		//当点击条目时先把当前的popupwindow关闭
+		// 当点击条目时先把当前的popupwindow关闭
 		dismissPopupWindow();
-		
+
 		int position = (Integer) v.getTag();
 		AppInfo appinfo = appinfos.get(position);
 		String packagename = appinfo.getPackagename();
 		switch (v.getId()) {
 		case R.id.ll_pupup_uninstall:// 卸载
-
+			if (appinfo.isSystemApp()) {
+				Toast.makeText(this, "不能卸载系统应用程序", Toast.LENGTH_SHORT).show();
+			} else {
+				String uristr = "package:" + packagename;
+				Uri uri = Uri.parse(uristr);
+				Intent delIntent = new Intent();
+				delIntent.setAction(Intent.ACTION_DELETE);
+				delIntent.setData(uri);
+				startActivityForResult(delIntent, IN_ALL_APPS);
+			}
 			break;
 		case R.id.ll_pupup_start:// 运行
 			// 运行就是找到manifest中的application中的第一个activity节点，然后开启;
@@ -185,9 +202,20 @@ public class Fun3AppManagerActivity extends Activity implements OnClickListener 
 			shareIntent.setAction(Intent.ACTION_SEND);
 			shareIntent.setType("text/plain");
 			shareIntent.putExtra(Intent.EXTRA_SUBJECT, "分享");
-			shareIntent.putExtra(Intent.EXTRA_TEXT, "hi,有一个好的应用程序,"+appinfo.getAppname());
-			shareIntent=Intent.createChooser(shareIntent, "分享");
+			shareIntent.putExtra(Intent.EXTRA_TEXT,
+					"hi,有一个好的应用程序," + appinfo.getAppname());
+			shareIntent = Intent.createChooser(shareIntent, "分享");
 			startActivity(shareIntent);
+			break;
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case IN_ALL_APPS:
+			refreshUI(IN_ALL_APPS);
 			break;
 		}
 	}
