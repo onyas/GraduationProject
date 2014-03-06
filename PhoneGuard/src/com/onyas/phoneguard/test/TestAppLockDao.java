@@ -25,5 +25,8 @@ public class TestAppLockDao extends AndroidTestCase {
 		AppLockDao dao = new AppLockDao(getContext());
 		List<String> list = dao.findAll();
 		System.out.println(list.size());
+		for(String str:list){
+			System.out.println(str);
+		}
 	}
 }

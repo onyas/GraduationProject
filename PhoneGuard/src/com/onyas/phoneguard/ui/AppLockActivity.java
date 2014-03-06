@@ -26,7 +26,7 @@ import com.onyas.phoneguard.engine.AppInfoEngine;
 
 public class AppLockActivity extends Activity {
 
-	private static ImageView iv;
+	private static ImageView iv,iv_lock;
 	private static TextView tv;// 静态的用于优化listView
 
 	private ListView lv_applock;
@@ -35,6 +35,7 @@ public class AppLockActivity extends Activity {
 	private ProgressDialog pd;
 	private AppLockAdapter adapter;
 	private AppLockDao dao;
+	private List<String> lockslist;//用于优化listView,这样不用每次都到数据库里面去查询
 
 	private Handler handler = new Handler() {
 
@@ -60,6 +61,7 @@ public class AppLockActivity extends Activity {
 		appInfoEngine = new AppInfoEngine(this);
 		adapter = new AppLockAdapter();
 		dao = new AppLockDao(this);
+		lockslist = dao.findAll();//从数据库中得到所有保护的程序
 		initUI();
 
 		lv_applock.setOnItemClickListener(new OnItemClickListener() {
@@ -78,10 +80,14 @@ public class AppLockActivity extends Activity {
 				ImageView iv = (ImageView) view.findViewById(R.id.iv_applock_item_lock);
 				//得到每一个AppInfo对象
 				AppInfo info = (AppInfo) parent.getItemAtPosition(position);
-				
-				if(dao.find(info.getPackagename())){
+				String packname = info.getPackagename();
+				if(dao.find(packname)){
+					lockslist.remove(packname);//从内存里面删除
+					dao.delete(packname);//从数据库里面删除
 					iv.setImageResource(R.drawable.unlock);
 				}else{
+					lockslist.add(packname);//向内存添加
+					dao.add(packname);//向数据库里面添加
 					iv.setImageResource(R.drawable.lock);
 				}
 				
@@ -130,10 +136,14 @@ public class AppLockActivity extends Activity {
 
 			iv = (ImageView) view.findViewById(R.id.iv_applock_icon);
 			tv = (TextView) view.findViewById(R.id.tv_applock_name);
-
+			iv_lock = (ImageView) view.findViewById(R.id.iv_applock_item_lock);
 			iv.setImageDrawable(info.getIcon());
 			tv.setText(info.getAppname());
-
+			if(lockslist.contains(info.getPackagename())){
+				iv_lock.setImageResource(R.drawable.lock);
+			}else{
+				iv_lock.setImageResource(R.drawable.unlock);
+			}
 			return view;
 		}
 
