@@ -94,6 +94,10 @@
             android:label="@string/app_manager"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
+        <activity
+            android:name="com.onyas.phoneguard.ui.AppLockActivity"
+            android:label="@string/app_lock" >
+        </activity>
 
         <service android:name="com.onyas.phoneguard.service.PhoneNumberService" >
         </service>

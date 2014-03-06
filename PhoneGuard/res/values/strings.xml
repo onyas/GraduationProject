@@ -31,4 +31,5 @@
     <string name="query_attribue">归属地查询</string>
 	<string name="add">添加</string>
 	<string name="app_manager">应用程序管理</string>
+	<string name="app_lock">程序锁</string>
 </resources>

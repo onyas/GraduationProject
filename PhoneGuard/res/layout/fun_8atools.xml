@@ -89,7 +89,7 @@
         android:text="更改归属地显示位置"
         android:textColor="@color/textColor"
         android:textSize="24sp" />
-    
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dip"
@@ -104,7 +104,7 @@
         android:text="短信备份"
         android:textColor="@color/textColor"
         android:textSize="24sp" />
-    
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dip"
@@ -117,6 +117,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dip"
         android:text="短信还原"
+        android:textColor="@color/textColor"
+        android:textSize="24sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_marginTop="5dip"
+        android:background="@android:color/white" />
+
+    <TextView
+        android:id="@+id/tv_atool_app_lock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:text="程序锁"
         android:textColor="@color/textColor"
         android:textSize="24sp" />
 

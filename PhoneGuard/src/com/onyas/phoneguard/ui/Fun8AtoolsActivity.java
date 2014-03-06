@@ -28,7 +28,7 @@ import com.onyas.phoneguard.service.PhoneNumberService;
 public class Fun8AtoolsActivity extends Activity implements OnClickListener {
 
 	private TextView tv_atool_query, tv_atool_serstate, tv_atool_bgcolor,
-			tv_atool_locate, tv_atool_sms_restore, tv_atool_sms_backup;
+			tv_atool_locate, tv_atool_sms_restore, tv_atool_sms_backup,tv_atool_app_lock;
 	private CheckBox cb_atool_change;
 	private Intent serviceIntent;
 	private SharedPreferences sp;
@@ -42,6 +42,7 @@ public class Fun8AtoolsActivity extends Activity implements OnClickListener {
 
 		sp = getSharedPreferences("config", Context.MODE_PRIVATE);
 
+		tv_atool_app_lock = (TextView) findViewById(R.id.tv_atool_app_lock);
 		tv_atool_sms_backup = (TextView) findViewById(R.id.tv_atool_sms_backup);
 		tv_atool_sms_restore = (TextView) findViewById(R.id.tv_atool_sms_restore);
 		tv_atool_query = (TextView) findViewById(R.id.tv_atool_query);
@@ -50,6 +51,7 @@ public class Fun8AtoolsActivity extends Activity implements OnClickListener {
 		tv_atool_bgcolor = (TextView) findViewById(R.id.tv_atool_bgcolor);
 		cb_atool_change = (CheckBox) findViewById(R.id.cb_atool_servicechange);
 
+		
 		serviceIntent = new Intent(this, PhoneNumberService.class);
 
 		cb_atool_change
@@ -76,6 +78,7 @@ public class Fun8AtoolsActivity extends Activity implements OnClickListener {
 		tv_atool_locate.setOnClickListener(this);
 		tv_atool_sms_backup.setOnClickListener(this);
 		tv_atool_sms_restore.setOnClickListener(this);
+		tv_atool_app_lock.setOnClickListener(this);
 	}
 
 	@Override
@@ -148,6 +151,11 @@ public class Fun8AtoolsActivity extends Activity implements OnClickListener {
 					pd.dismiss();
 				};
 			}.start();
+			break;
+			
+		case R.id.tv_atool_app_lock://³ÌÐòËø
+			Intent lockIntent = new Intent(this,AppLockActivity.class);
+			startActivity(lockIntent);
 			break;
 		}
 	}
