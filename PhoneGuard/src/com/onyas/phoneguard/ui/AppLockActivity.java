@@ -10,25 +10,31 @@ import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.onyas.phoneguard.R;
+import com.onyas.phoneguard.db.dao.AppLockDao;
 import com.onyas.phoneguard.domain.AppInfo;
 import com.onyas.phoneguard.engine.AppInfoEngine;
 
 public class AppLockActivity extends Activity {
 
 	private static ImageView iv;
-	private static TextView tv;//静态的用于优化listView 
+	private static TextView tv;// 静态的用于优化listView
 
 	private ListView lv_applock;
 	private AppInfoEngine appInfoEngine;
 	private List<AppInfo> appinfos;
 	private ProgressDialog pd;
 	private AppLockAdapter adapter;
+	private AppLockDao dao;
 
 	private Handler handler = new Handler() {
 
@@ -53,7 +59,34 @@ public class AppLockActivity extends Activity {
 		lv_applock = (ListView) findViewById(R.id.lv_applock);
 		appInfoEngine = new AppInfoEngine(this);
 		adapter = new AppLockAdapter();
+		dao = new AppLockDao(this);
 		initUI();
+
+		lv_applock.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				//定义一个位移动画
+				TranslateAnimation ta = new TranslateAnimation(
+						Animation.RELATIVE_TO_SELF, 0.5f,
+						Animation.RELATIVE_TO_SELF, 1.0f,
+						Animation.RELATIVE_TO_SELF, 0.0f,
+						Animation.RELATIVE_TO_SELF, 1.0f);
+				ta.setDuration(100);
+				view.startAnimation(ta);
+				//得到锁的图片
+				ImageView iv = (ImageView) view.findViewById(R.id.iv_applock_item_lock);
+				//得到每一个AppInfo对象
+				AppInfo info = (AppInfo) parent.getItemAtPosition(position);
+				
+				if(dao.find(info.getPackagename())){
+					iv.setImageResource(R.drawable.unlock);
+				}else{
+					iv.setImageResource(R.drawable.lock);
+				}
+				
+			}
+		});
 	}
 
 	// 开启新的线程获得所有的app
@@ -100,7 +133,7 @@ public class AppLockActivity extends Activity {
 
 			iv.setImageDrawable(info.getIcon());
 			tv.setText(info.getAppname());
-			
+
 			return view;
 		}
 

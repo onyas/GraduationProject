@@ -24,6 +24,7 @@
         android:textSize="22sp" />
 
     <ImageView
+        android:id="@+id/iv_applock_item_lock"
         android:layout_width="40dip"
         android:layout_height="40dip"
         android:layout_alignParentRight="true"
