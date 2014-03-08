@@ -1,5 +1,6 @@
 package com.onyas.phoneguard.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -7,6 +8,7 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -20,11 +22,46 @@ public class WatchDogService extends Service {
 	private List<String> lockapps;
 	private ActivityManager am;
 	private Intent protectAppIntent;
-	private boolean flag;
+	private boolean flag;// 用于标识是否要停止线程
+	private List<String> tempUnprotect;// 暂时停止保护的程序的集合
+	private MyBinder mybinder;
 
 	@Override
 	public IBinder onBind(Intent intent) {
-		return null;
+
+		return mybinder;
+	}
+
+	private class MyBinder extends Binder implements IService {
+		@Override
+		public void stopProtectApp(String packname) {
+			stopProtect(packname);
+		}
+
+		@Override
+		public void startProtectApp(String packname) {
+			startProtect(packname);
+		}
+	}
+
+	/**
+	 * 暂时停止对应用程序的保护
+	 * 
+	 * @param packname
+	 */
+	public void stopProtect(String packname) {
+		tempUnprotect.add(packname);
+	}
+
+	/**
+	 * 重新开启对应用程序的保护
+	 * 
+	 * @param packname
+	 */
+	public void startProtect(String packname) {
+		if (tempUnprotect.contains(packname)) {
+			tempUnprotect.remove(packname);
+		}
 	}
 
 	/**
@@ -32,6 +69,8 @@ public class WatchDogService extends Service {
 	 */
 	@Override
 	public void onCreate() {
+		mybinder = new MyBinder();
+		tempUnprotect = new ArrayList<String>();
 		dao = new AppLockDao(this);
 		lockapps = dao.findAll();// 得到所有要加密的应用程序
 		protectAppIntent = new Intent(this, ProtectAppActivity.class);
@@ -60,6 +99,11 @@ public class WatchDogService extends Service {
 							// 需要保护的，然后弹出输入密码的对话框
 							Log.i(TAG, "需要锁定" + packname);
 
+							// 当用户输入正确密码第二次看到用户程序的界面时，不要弹出输入密码的框
+							if (tempUnprotect.contains(packname)) {
+								sleep(1000);
+								continue;
+							}
 							protectAppIntent.putExtra("packname", packname);
 							startActivity(protectAppIntent);
 						} else {
@@ -81,5 +125,4 @@ public class WatchDogService extends Service {
 		super.onDestroy();
 		flag = false;
 	}
-
 }
