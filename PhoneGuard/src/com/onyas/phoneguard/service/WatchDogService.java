@@ -8,7 +8,10 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.app.Service;
 import android.content.Intent;
+import android.database.ContentObserver;
+import android.net.Uri;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -69,13 +72,20 @@ public class WatchDogService extends Service {
 	 */
 	@Override
 	public void onCreate() {
+
+		getContentResolver()
+				.registerContentObserver(
+						Uri.parse("content://com.onyas.applockprovide"), true,
+						new MyObserver(new Handler()));
+
 		mybinder = new MyBinder();
 		tempUnprotect = new ArrayList<String>();
 		dao = new AppLockDao(this);
 		lockapps = dao.findAll();// 得到所有要加密的应用程序
 		protectAppIntent = new Intent(this, ProtectAppActivity.class);
 		// 服务里面不存在任务栈，如果要在服务里面激活一个activity,就要加上这个Flag，如果手机卫士有任务栈，则复用之前的任务栈，
-		//如果把ProtectAppActivity放到一个新的任务栈里，不把它放到手机卫士里面，改为用activity的Single Instance启用模式,并且这个任务栈里只有一个activity的实例
+		// 如果把ProtectAppActivity放到一个新的任务栈里，不把它放到手机卫士里面，改为用activity的Single
+		// Instance启用模式,并且这个任务栈里只有一个activity的实例
 		protectAppIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		flag = true;
 		am = (ActivityManager) getSystemService(Activity.ACTIVITY_SERVICE);
@@ -125,5 +135,21 @@ public class WatchDogService extends Service {
 	public void onDestroy() {
 		super.onDestroy();
 		flag = false;
+	}
+
+	private class MyObserver extends ContentObserver {
+
+		public MyObserver(Handler handler) {
+			super(handler);
+		}
+
+		@Override
+		public void onChange(boolean selfChange) {
+			super.onChange(selfChange);
+			Log.i(TAG, "数据库内容发生了改变");
+			// 重新更新lockapps集合里面的内容
+			lockapps = dao.findAll();
+		}
+
 	}
 }

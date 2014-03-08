@@ -140,6 +140,11 @@
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
+
+        <provider
+            android:name="com.onyas.phoneguard.provider.AppLockProvider"
+            android:authorities="com.onyas.applockprovider" >
+        </provider>
     </application>
 
 </manifest>
