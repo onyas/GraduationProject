@@ -103,6 +103,8 @@
         </service>
         <service android:name="com.onyas.phoneguard.service.BackupSmsService" >
         </service>
+        <service android:name="com.onyas.phoneguard.service.WatchDogService" >
+        </service>
 
         <receiver android:name="com.onyas.phoneguard.receiver.OutgoingCallReceiver" >
             <intent-filter android:priority="1000" >
