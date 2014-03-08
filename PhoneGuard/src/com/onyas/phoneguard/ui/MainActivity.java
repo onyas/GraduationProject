@@ -127,6 +127,11 @@ public class MainActivity extends Activity implements OnItemClickListener {
 			Intent fun8 = new Intent(MainActivity.this, Fun8AtoolsActivity.class);
 			startActivity(fun8);
 			break;
+		case 8://设置中心
+			Log.i(TAG, "进入设置中心");
+			Intent fun9 = new Intent(MainActivity.this, Fun9SettingCenterActivity.class);
+			startActivity(fun9);
+			break;
 		default:
 			break;
 		}

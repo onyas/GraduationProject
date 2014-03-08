@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/iv_protectapp_icon"
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_protectapp_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:text="@string/test"
+            />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_protectapp_password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="submit"
+        android:text="@string/confirm" />
+
+</LinearLayout>

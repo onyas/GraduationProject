@@ -28,6 +28,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.GET_TASKS"/>
 
     <application
         android:allowBackup="true"
@@ -98,7 +99,13 @@
             android:name="com.onyas.phoneguard.ui.AppLockActivity"
             android:label="@string/app_lock" >
         </activity>
-
+        <activity
+            android:name="com.onyas.phoneguard.ui.ProtectAppActivity"
+            android:label="@string/inputpwd" >
+        </activity>
+		<activity android:name="com.onyas.phoneguard.ui.Fun9SettingCenterActivity" android:label="@string/setting_center"></activity>
+        
+        
         <service android:name="com.onyas.phoneguard.service.PhoneNumberService" >
         </service>
         <service android:name="com.onyas.phoneguard.service.BackupSmsService" >

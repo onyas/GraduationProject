@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroudcolor"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip" >
+
+        <LinearLayout
+            android:layout_width="280dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="280dip"
+                android:layout_height="wrap_content"
+                android:text="设置程序锁服务"
+                android:textColor="@color/textColor"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tv_setting_servicestate"
+                android:layout_width="280dip"
+                android:layout_height="wrap_content"
+                android:text="程序锁服务末开启"
+                android:textColor="#ffff0000"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="15dip" >
+
+            <CheckBox
+                android:id="@+id/cb_setting_servicechange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>
