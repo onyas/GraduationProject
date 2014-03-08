@@ -20,6 +20,7 @@ public class WatchDogService extends Service {
 	private List<String> lockapps;
 	private ActivityManager am;
 	private Intent protectAppIntent;
+	private boolean flag;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -36,14 +37,14 @@ public class WatchDogService extends Service {
 		protectAppIntent = new Intent(this, ProtectAppActivity.class);
 		// 服务里面不存在任务栈，如果要在服务里面激活一个activity,就要加上这个Flag
 		protectAppIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
+		flag = true;
 		am = (ActivityManager) getSystemService(Activity.ACTIVITY_SERVICE);
 
 		new Thread() {
 			public void run() {
 
 				// 开启看门狗
-				while (true) {
+				while (flag) {
 					try {
 						// 得到当前正在运行程序的包名
 						// 返回系统里面任务栈的信息，只返回最近的一条
@@ -53,12 +54,12 @@ public class WatchDogService extends Service {
 						// 获取当前用户可见的activity所在程序的包名
 						String packname = currentTast.topActivity
 								.getPackageName();
-//						Log.i(TAG, "当前正在运行" + packname);
+						// Log.i(TAG, "当前正在运行" + packname);
 
 						if (lockapps.contains(packname)) {
 							// 需要保护的，然后弹出输入密码的对话框
 							Log.i(TAG, "需要锁定" + packname);
-							
+
 							protectAppIntent.putExtra("packname", packname);
 							startActivity(protectAppIntent);
 						} else {
@@ -73,6 +74,12 @@ public class WatchDogService extends Service {
 				}
 			};
 		}.start();
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		flag = false;
 	}
 
 }
