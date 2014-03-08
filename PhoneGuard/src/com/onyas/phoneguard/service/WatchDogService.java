@@ -74,7 +74,8 @@ public class WatchDogService extends Service {
 		dao = new AppLockDao(this);
 		lockapps = dao.findAll();// 得到所有要加密的应用程序
 		protectAppIntent = new Intent(this, ProtectAppActivity.class);
-		// 服务里面不存在任务栈，如果要在服务里面激活一个activity,就要加上这个Flag
+		// 服务里面不存在任务栈，如果要在服务里面激活一个activity,就要加上这个Flag，如果手机卫士有任务栈，则复用之前的任务栈，
+		//如果把ProtectAppActivity放到一个新的任务栈里，不把它放到手机卫士里面，改为用activity的Single Instance启用模式,并且这个任务栈里只有一个activity的实例
 		protectAppIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		flag = true;
 		am = (ActivityManager) getSystemService(Activity.ACTIVITY_SERVICE);
