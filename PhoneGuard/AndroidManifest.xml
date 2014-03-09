@@ -108,6 +108,8 @@
             android:name="com.onyas.phoneguard.ui.Fun9SettingCenterActivity"
             android:label="@string/setting_center" >
         </activity>
+        <activity android:name="com.onyas.phoneguard.ui.Fun4TaskManagerActivity" >
+        </activity>
 
         <service android:name="com.onyas.phoneguard.service.PhoneNumberService" >
         </service>
