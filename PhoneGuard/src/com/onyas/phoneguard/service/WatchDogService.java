@@ -6,7 +6,9 @@ import java.util.List;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
+import android.app.KeyguardManager;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.net.Uri;
@@ -28,7 +30,8 @@ public class WatchDogService extends Service {
 	private boolean flag;// 用于标识是否要停止线程
 	private List<String> tempUnprotect;// 暂时停止保护的程序的集合
 	private MyBinder mybinder;
-
+	private KeyguardManager km;
+	
 	@Override
 	public IBinder onBind(Intent intent) {
 
@@ -96,6 +99,11 @@ public class WatchDogService extends Service {
 				// 开启看门狗
 				while (flag) {
 					try {
+						km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+						if(km.inKeyguardRestrictedInputMode()){
+							//如果锁屏了,则清空临时不保存程序的集合列表
+							tempUnprotect.clear();
+						}
 						// 得到当前正在运行程序的包名
 						// 返回系统里面任务栈的信息，只返回最近的一条
 						// 内容就是当前正在运行的进程所对应的任务栈
