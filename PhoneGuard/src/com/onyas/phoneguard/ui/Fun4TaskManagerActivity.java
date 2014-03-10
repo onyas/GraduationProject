@@ -13,12 +13,15 @@ import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.onyas.phoneguard.R;
 import com.onyas.phoneguard.domain.TaskInfo;
@@ -36,6 +39,8 @@ public class Fun4TaskManagerActivity extends Activity {
 	private TaskInfoEngine taskInfoEngine;
 	private List<TaskInfo> taskInfos;// 正在运行的进程的集合
 	private TaskInfoAdapter adapter;
+	private List<TaskInfo> userTaskInfos;
+	private List<TaskInfo> systemTaskInfos;
 	private Handler handler = new Handler() {
 
 		@Override
@@ -68,8 +73,27 @@ public class Fun4TaskManagerActivity extends Activity {
 		lv_taskmanager_list = (ListView) findViewById(R.id.lv_taskmanager_list);
 		ll_taskmanager_loading = (LinearLayout) findViewById(R.id.ll_taskmanager_loading);
 
-		fillData();
+		lv_taskmanager_list.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				CheckBox cb_status = (CheckBox) view
+						.findViewById(R.id.cb_taskitem_checked);
+				Object obj = lv_taskmanager_list.getItemAtPosition(position);
+				if (obj instanceof TaskInfo) {
+					TaskInfo taskinfo = (TaskInfo) obj;
+					if (taskinfo.isChecked()) {
+						taskinfo.setChecked(false);
+						cb_status.setChecked(false);// 更改cb的状态
+					} else {
+						taskinfo.setChecked(true);
+						cb_status.setChecked(true);
+					}
+				}
+			}
+		});
 
+		fillData();
 	}
 
 	/**
@@ -124,6 +148,30 @@ public class Fun4TaskManagerActivity extends Activity {
 	 */
 	public void clean(View view) {
 
+		int count = 0;
+		int memsize = 0;
+		for (TaskInfo info : userTaskInfos) {
+			if (info.isChecked()) {
+				memsize += info.getMemorysize();
+				am.killBackgroundProcesses(info.getPackname());
+				count++;
+				taskInfos.remove(info);
+			}
+		}
+
+		for (TaskInfo info : systemTaskInfos) {
+			if (info.isChecked()) {
+				memsize += info.getMemorysize();
+				am.killBackgroundProcesses(info.getPackname());
+				count++;
+				taskInfos.remove(info);
+			}
+		}
+		String size = TextFormatter.kbFormat(memsize);
+		Toast.makeText(this, "杀死了"+count+"个进程,释放了"+size+"资源", Toast.LENGTH_SHORT).show();
+		//更新listView,只是把taskinfo从taskinfos集合中移除
+		adapter = new TaskInfoAdapter();
+		lv_taskmanager_list.setAdapter(adapter);
 	}
 
 	/**
@@ -136,9 +184,6 @@ public class Fun4TaskManagerActivity extends Activity {
 	}
 
 	private class TaskInfoAdapter extends BaseAdapter {
-
-		private List<TaskInfo> userTaskInfos;
-		private List<TaskInfo> systemTaskInfos;
 
 		/**
 		 * 在构造方法里面完成了用户列表和系统程序列表的区分
