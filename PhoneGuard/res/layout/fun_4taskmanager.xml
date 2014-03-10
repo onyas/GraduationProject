@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical|center_horizontal"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:visibility="invisible" >
 
             <ProgressBar
@@ -32,7 +32,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="正在加载应用程序"
+                android:text="正在加载进程"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
         </LinearLayout>

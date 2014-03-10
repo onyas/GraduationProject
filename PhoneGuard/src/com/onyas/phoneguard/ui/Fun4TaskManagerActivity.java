@@ -1,5 +1,6 @@
 package com.onyas.phoneguard.ui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -35,18 +36,18 @@ public class Fun4TaskManagerActivity extends Activity {
 	private TaskInfoEngine taskInfoEngine;
 	private List<TaskInfo> taskInfos;// 正在运行的进程的集合
 	private TaskInfoAdapter adapter;
-	private Handler handler = new Handler(){
+	private Handler handler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			ll_taskmanager_loading.setVisibility(View.INVISIBLE);
+			adapter = new TaskInfoAdapter();
 			lv_taskmanager_list.setAdapter(adapter);
 		}
-		
+
 	};
-	
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,7 +62,7 @@ public class Fun4TaskManagerActivity extends Activity {
 
 		am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
 		taskInfoEngine = new TaskInfoEngine(this);
-		adapter = new TaskInfoAdapter();
+
 		tv_taskmanager_allprocess = (TextView) findViewById(R.id.tv_taskmanager_allprocess);
 		tv_taskmanager_aviamemory = (TextView) findViewById(R.id.tv_taskmanager_aviamemory);
 		lv_taskmanager_list = (ListView) findViewById(R.id.lv_taskmanager_list);
@@ -136,38 +137,135 @@ public class Fun4TaskManagerActivity extends Activity {
 
 	private class TaskInfoAdapter extends BaseAdapter {
 
+		private List<TaskInfo> userTaskInfos;
+		private List<TaskInfo> systemTaskInfos;
+
+		/**
+		 * 在构造方法里面完成了用户列表和系统程序列表的区分
+		 */
+		public TaskInfoAdapter() {
+			userTaskInfos = new ArrayList<TaskInfo>();
+			systemTaskInfos = new ArrayList<TaskInfo>();
+
+			for (TaskInfo taskinfo : taskInfos) {
+				if (taskinfo.isSystemapp()) {
+					systemTaskInfos.add(taskinfo);
+				} else {
+					userTaskInfos.add(taskinfo);
+				}
+			}
+
+		}
+
 		@Override
 		public int getCount() {
-			return taskInfos.size();
+			return taskInfos.size() + 2;// 加2，代表的是两个TextView,(用户进程，系统进程)
 		}
 
 		@Override
 		public Object getItem(int position) {
-			return taskInfos.get(position);
+			if (position == 0) {
+				return position;
+			} else if (position <= userTaskInfos.size()) {
+				return userTaskInfos.get(position - 1);
+			} else if (position == userTaskInfos.size() + 1) {
+				return position;
+			} else if (position <= taskInfos.size() + 2) {
+				return systemTaskInfos.get(position - userTaskInfos.size() - 2);
+			} else {
+				return position;
+			}
 		}
 
 		@Override
 		public long getItemId(int position) {
-			return position;
+			if (position == 0) {
+				return -1;
+			} else if (position <= userTaskInfos.size()) {
+				return (position - 1);
+			} else if (position == userTaskInfos.size() + 1) {
+				return -1;
+			} else if (position <= taskInfos.size() + 2) {
+				return (position - userTaskInfos.size() - 2);
+			} else {
+				return -1;
+			}
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			TaskInfo taskInfo = taskInfos.get(position);
-			View view = View.inflate(getApplicationContext(),
-					R.layout.taskmanageritem, null);
-			ViewHolder holder = new ViewHolder();
-			holder.iv_icon = (ImageView) view.findViewById(R.id.iv_task_icon);
-			holder.tv_name = (TextView) view.findViewById(R.id.tv_task_name);
-			holder.tv_memorysize = (TextView) view
-					.findViewById(R.id.tv_task_memorysize);
-			holder.cb_status = (CheckBox) view
-					.findViewById(R.id.cb_taskitem_checked);
-			holder.iv_icon.setImageDrawable(taskInfo.getAppicon());
-			holder.tv_name.setText(taskInfo.getAppname());
-			holder.tv_memorysize.setText("占用内存"+TextFormatter.kbFormat(taskInfo.getMemorysize()));
-			holder.cb_status.setChecked(taskInfo.isChecked());
-			return view;
+			// 把这些条目信息做一下分类，分成系统进程和用户进程
+
+			if (position == 0) {
+				TextView tv_user = new TextView(Fun4TaskManagerActivity.this);
+				tv_user.setText("用户进程" + userTaskInfos.size() + "个");
+				return tv_user;
+			} else if (position <= userTaskInfos.size()) {// 用户进程的显示
+				int currentPosition = position - 1;
+				TaskInfo taskInfo = userTaskInfos.get(currentPosition);
+				View view = View.inflate(getApplicationContext(),
+						R.layout.taskmanageritem, null);
+				ViewHolder holder = new ViewHolder();
+				holder.iv_icon = (ImageView) view
+						.findViewById(R.id.iv_task_icon);
+				holder.tv_name = (TextView) view
+						.findViewById(R.id.tv_task_name);
+				holder.tv_memorysize = (TextView) view
+						.findViewById(R.id.tv_task_memorysize);
+				holder.cb_status = (CheckBox) view
+						.findViewById(R.id.cb_taskitem_checked);
+				holder.iv_icon.setImageDrawable(taskInfo.getAppicon());
+				holder.tv_name.setText(taskInfo.getAppname());
+				holder.tv_memorysize.setText("占用内存"
+						+ TextFormatter.kbFormat(taskInfo.getMemorysize()));
+				holder.cb_status.setChecked(taskInfo.isChecked());
+				return view;
+
+			} else if (position == userTaskInfos.size() + 1) {
+				TextView tv_sys = new TextView(Fun4TaskManagerActivity.this);
+				tv_sys.setText("系统进程" + systemTaskInfos.size() + "个");
+				return tv_sys;
+
+			} else if (position <= taskInfos.size() + 2) {// 系统进程的显示
+				int currentPosition = position - userTaskInfos.size() - 2;
+				TaskInfo taskInfo = systemTaskInfos.get(currentPosition);
+				View view = View.inflate(getApplicationContext(),
+						R.layout.taskmanageritem, null);
+				ViewHolder holder = new ViewHolder();
+				holder.iv_icon = (ImageView) view
+						.findViewById(R.id.iv_task_icon);
+				holder.tv_name = (TextView) view
+						.findViewById(R.id.tv_task_name);
+				holder.tv_memorysize = (TextView) view
+						.findViewById(R.id.tv_task_memorysize);
+				holder.cb_status = (CheckBox) view
+						.findViewById(R.id.cb_taskitem_checked);
+				holder.iv_icon.setImageDrawable(taskInfo.getAppicon());
+				holder.tv_name.setText(taskInfo.getAppname());
+				holder.tv_memorysize.setText("占用内存"
+						+ TextFormatter.kbFormat(taskInfo.getMemorysize()));
+				holder.cb_status.setChecked(taskInfo.isChecked());
+				return view;
+			} else {
+				return null;
+			}
+
+			/*
+			 * TaskInfo taskInfo = taskInfos.get(position); View view =
+			 * View.inflate(getApplicationContext(), R.layout.taskmanageritem,
+			 * null); ViewHolder holder = new ViewHolder(); holder.iv_icon =
+			 * (ImageView) view.findViewById(R.id.iv_task_icon); holder.tv_name
+			 * = (TextView) view.findViewById(R.id.tv_task_name);
+			 * holder.tv_memorysize = (TextView) view
+			 * .findViewById(R.id.tv_task_memorysize); holder.cb_status =
+			 * (CheckBox) view .findViewById(R.id.cb_taskitem_checked);
+			 * holder.iv_icon.setImageDrawable(taskInfo.getAppicon());
+			 * holder.tv_name.setText(taskInfo.getAppname());
+			 * holder.tv_memorysize
+			 * .setText("占用内存"+TextFormatter.kbFormat(taskInfo
+			 * .getMemorysize()));
+			 * holder.cb_status.setChecked(taskInfo.isChecked()); return view;
+			 */
 		}
 
 	}

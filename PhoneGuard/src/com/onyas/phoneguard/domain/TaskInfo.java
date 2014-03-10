@@ -10,6 +10,7 @@ public class TaskInfo {
 	private int memorysize;// 占用内存
 	private String packname;
 	private boolean isChecked;// 是否选中
+	private boolean systemapp;
 
 	public TaskInfo() {
 
@@ -24,6 +25,17 @@ public class TaskInfo {
 		this.memorysize = memorysize;
 		this.packname = packname;
 		this.isChecked = isChecked;
+	}
+
+	
+	
+	
+	public boolean isSystemapp() {
+		return systemapp;
+	}
+
+	public void setSystemapp(boolean systemapp) {
+		this.systemapp = systemapp;
 	}
 
 	public String getAppname() {
