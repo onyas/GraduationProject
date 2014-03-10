@@ -32,4 +32,16 @@ public class TextFormatter {
 		}
 	}
 
+	
+	
+	/**
+	 * 将一个int类型的kb大小的数据转化为友好的数据大小的方法
+	 * 
+	 * @param size
+	 *           
+	 * @return 多大(KB,MB,GB)
+	 */
+	public static String kbFormat(int size) {
+		return sizeFormat(size*1024);
+	}
 }
