@@ -12,6 +12,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.Drawable;
 import android.os.Debug.MemoryInfo;
 
+import com.onyas.phoneguard.R;
 import com.onyas.phoneguard.domain.TaskInfo;
 
 public class TaskInfoEngine {
@@ -19,8 +20,10 @@ public class TaskInfoEngine {
 	private PackageManager pm;
 	private ActivityManager am;
 	private List<RunningAppProcessInfo> runingProcessinfos;
+	private Context context;
 
 	public TaskInfoEngine(Context context) {
+		this.context = context;
 		pm = context.getPackageManager();
 		am = (ActivityManager) context
 				.getSystemService(Context.ACTIVITY_SERVICE);
@@ -47,16 +50,28 @@ public class TaskInfoEngine {
 				int memorysize = memoryinfos[0].getTotalPrivateDirty();// 得到程序占用的内存
 				taskinfo = new TaskInfo(appname, appicon, pid, memorysize,
 						packname, false);
-				//判断是否为系统应用程序
+				// 判断是否为系统应用程序
 				if (filterApp(appinfo)) {
 					taskinfo.setSystemapp(false);
-				}else{
+				} else {
 					taskinfo.setSystemapp(true);
 				}
 				taskinfos.add(taskinfo);
 				taskinfo = null;
 			} catch (NameNotFoundException e) {
-				e.printStackTrace();
+				e.printStackTrace();//有三个系统进程的包名是不对的，然后也没有图标(不是以apk包的形式安装到手机上的)
+				String packname = info.processName;
+				Drawable appicon = context.getResources().getDrawable(
+						R.drawable.ic_launcher);
+				int pid = info.pid;
+				MemoryInfo[] memoryinfos = am
+						.getProcessMemoryInfo(new int[] { pid });
+				int memorysize = memoryinfos[0].getTotalPrivateDirty();// 得到程序占用的内存
+				taskinfo = new TaskInfo(packname, appicon, pid, memorysize,
+						packname, false);
+				taskinfo.setSystemapp(true);
+				taskinfos.add(taskinfo);
+				taskinfo = null;
 			}
 		}
 
