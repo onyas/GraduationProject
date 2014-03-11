@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="20dip" >
+
+        <TextView
+            android:layout_width="0dip"
+            android:layout_height="20dip"
+            android:layout_weight="1"
+            android:text="程序名" />
+
+        <TextView
+            android:id="@+id/tv_apppermission_name"
+            android:layout_width="0dip"
+            android:layout_height="20dip"
+            android:layout_weight="1"
+            android:text="程序名" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="20dip" >
+
+        <TextView
+            android:layout_width="0dip"
+            android:layout_height="20dip"
+            android:layout_weight="1"
+            android:text="包名" />
+
+        <TextView
+            android:id="@+id/tv_apppermission_packname"
+            android:layout_width="0dip"
+            android:layout_height="20dip"
+            android:layout_weight="1"
+            android:text="包名" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="20dip" >
+
+        <TextView
+            android:layout_width="0dip"
+            android:layout_height="20dip"
+            android:layout_weight="1"
+            android:text="权限列表" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ScrollView
+            android:id="@+id/sv_permission"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </ScrollView>
+    </TableRow>
+
+</TableLayout>

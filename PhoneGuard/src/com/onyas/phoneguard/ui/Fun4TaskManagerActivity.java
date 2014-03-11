@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.MemoryInfo;
 import android.app.ActivityManager.RunningAppProcessInfo;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,14 +16,15 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.onyas.phoneguard.MyApplication;
 import com.onyas.phoneguard.R;
 import com.onyas.phoneguard.domain.TaskInfo;
 import com.onyas.phoneguard.engine.TaskInfoEngine;
@@ -54,8 +56,7 @@ public class Fun4TaskManagerActivity extends Activity {
 			String avail = TextFormatter.sizeFormat(getAvailMemory());
 			String total = TextFormatter.sizeFormat(totalused * 1024
 					+ getAvailMemory());
-			tv_taskmanager_aviamemory
-					.setText("可用\\总内存" + avail + "\\" + total);
+			tv_taskmanager_aviamemory.setText("可用\\总内存" + avail + "\\" + total);
 		}
 
 	};
@@ -106,6 +107,29 @@ public class Fun4TaskManagerActivity extends Activity {
 				}
 			}
 		});
+
+		lv_taskmanager_list
+				.setOnItemLongClickListener(new OnItemLongClickListener() {
+					@Override
+					public boolean onItemLongClick(AdapterView<?> parent,
+							View view, int position, long id) {
+
+						Intent intent = new Intent(
+								Fun4TaskManagerActivity.this,
+								AppPermissionActivity.class);
+						
+						MyApplication myapp = (MyApplication) getApplication();//得到整个应用程序的上下文，在整个应用程序中共享数据
+						Object obj = lv_taskmanager_list
+								.getItemAtPosition(position);
+						if (obj instanceof TaskInfo) {
+							TaskInfo taskinfo = (TaskInfo) obj;
+							myapp.taskinfo = taskinfo;
+						}
+						
+						startActivity(intent);
+						return false;
+					}
+				});
 
 		fillData();
 	}
@@ -188,7 +212,8 @@ public class Fun4TaskManagerActivity extends Activity {
 		String size = TextFormatter.kbFormat(memsize);
 		// Toast.makeText(this, "杀死了" + count + "个进程,释放了" + size + "资源",
 		// Toast.LENGTH_SHORT).show();
-		MyToast.makeText(this, R.drawable.notification, "杀死了" + count + "个进程,释放了" + size + "资源");
+		MyToast.makeText(this, R.drawable.notification, "杀死了" + count
+				+ "个进程,释放了" + size + "资源");
 		// 更新listView,只是把taskinfo从taskinfos集合中移除
 		adapter = new TaskInfoAdapter();
 		lv_taskmanager_list.setAdapter(adapter);
