@@ -25,5 +25,26 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dip" />
     </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:text="锁屏时自动清理"
+            android:textColor="@color/textColor"
+            android:textSize="24sp" />
+
+        <CheckBox
+            android:id="@+id/cb_task_auto_clean"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dip" />
+    </RelativeLayout>
 
 </LinearLayout>

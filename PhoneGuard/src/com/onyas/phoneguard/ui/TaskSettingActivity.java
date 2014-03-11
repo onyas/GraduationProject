@@ -12,7 +12,7 @@ import com.onyas.phoneguard.R;
 
 public class TaskSettingActivity extends Activity {
 
-	private CheckBox cb_show_systeminfo;
+	private CheckBox cb_show_systeminfo, cb_auto_clean;
 	private SharedPreferences sp;
 
 	@Override
@@ -21,9 +21,11 @@ public class TaskSettingActivity extends Activity {
 		setContentView(R.layout.tasksetting);
 
 		cb_show_systeminfo = (CheckBox) findViewById(R.id.cb_task_setting_status);
-
+		cb_auto_clean = (CheckBox) findViewById(R.id.cb_task_auto_clean);
+		//是否显示系统进程
 		sp = getSharedPreferences("config", MODE_PRIVATE);
 		boolean showsystemprocess = sp.getBoolean("showsystemprocess", true);
+
 		if (showsystemprocess) {
 			cb_show_systeminfo.setChecked(true);
 		} else {
@@ -47,6 +49,29 @@ public class TaskSettingActivity extends Activity {
 						}
 					}
 				});
+		//锁屏时自动清理进程
+		boolean autoclean = sp.getBoolean("autoclean", false);
+		if (autoclean) {
+			cb_auto_clean.setChecked(true);
+		} else {
+			cb_auto_clean.setChecked(false);
+		}
+		cb_auto_clean.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				if (isChecked) {
+					Editor editor = sp.edit();
+					editor.putBoolean("autoclean", true);
+					editor.commit();
+				} else {
+					Editor editor = sp.edit();
+					editor.putBoolean("autoclean", false);
+					editor.commit();
+				}
+			}
+		});
+
 	}
 
 }

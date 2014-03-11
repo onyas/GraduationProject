@@ -152,6 +152,11 @@
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
+        <receiver android:name="com.onyas.phoneguard.receiver.ScreenOffReceiver" >
+            <intent-filter android:priority="1000" >
+                <action android:name="android.intent.action.SCREEN_OFF" />
+            </intent-filter>
+        </receiver>
 
         <provider
             android:name="com.onyas.phoneguard.provider.AppLockProvider"
