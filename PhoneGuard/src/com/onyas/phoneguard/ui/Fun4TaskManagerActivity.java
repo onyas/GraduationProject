@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.onyas.phoneguard.R;
 import com.onyas.phoneguard.domain.TaskInfo;
 import com.onyas.phoneguard.engine.TaskInfoEngine;
+import com.onyas.phoneguard.ui.stub.MyToast;
 import com.onyas.phoneguard.util.TextFormatter;
 
 public class Fun4TaskManagerActivity extends Activity {
@@ -185,8 +186,9 @@ public class Fun4TaskManagerActivity extends Activity {
 			}
 		}
 		String size = TextFormatter.kbFormat(memsize);
-		Toast.makeText(this, "杀死了" + count + "个进程,释放了" + size + "资源",
-				Toast.LENGTH_SHORT).show();
+		// Toast.makeText(this, "杀死了" + count + "个进程,释放了" + size + "资源",
+		// Toast.LENGTH_SHORT).show();
+		MyToast.makeText(this, R.drawable.notification, "杀死了" + count + "个进程,释放了" + size + "资源");
 		// 更新listView,只是把taskinfo从taskinfos集合中移除
 		adapter = new TaskInfoAdapter();
 		lv_taskmanager_list.setAdapter(adapter);
