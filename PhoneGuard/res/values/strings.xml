@@ -33,4 +33,5 @@
 	<string name="app_manager">应用程序管理</string>
 	<string name="app_lock">程序锁</string>
 	<string name="setting_center">设置中心</string>
+	<string name="tasksetting">任务设置</string>
 </resources>

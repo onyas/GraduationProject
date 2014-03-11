@@ -8,6 +8,7 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.MemoryInfo;
 import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -117,15 +118,15 @@ public class Fun4TaskManagerActivity extends Activity {
 						Intent intent = new Intent(
 								Fun4TaskManagerActivity.this,
 								AppPermissionActivity.class);
-						
-						MyApplication myapp = (MyApplication) getApplication();//得到整个应用程序的上下文，在整个应用程序中共享数据
+
+						MyApplication myapp = (MyApplication) getApplication();// 得到整个应用程序的上下文，在整个应用程序中共享数据
 						Object obj = lv_taskmanager_list
 								.getItemAtPosition(position);
 						if (obj instanceof TaskInfo) {
 							TaskInfo taskinfo = (TaskInfo) obj;
 							myapp.taskinfo = taskinfo;
 						}
-						
+
 						startActivity(intent);
 						return false;
 					}
@@ -225,7 +226,8 @@ public class Fun4TaskManagerActivity extends Activity {
 	 * @param view
 	 */
 	public void setting(View view) {
-
+		Intent intent = new Intent(this,TaskSettingActivity.class);
+		startActivityForResult(intent, 0);
 	}
 
 	private class TaskInfoAdapter extends BaseAdapter {
@@ -249,7 +251,15 @@ public class Fun4TaskManagerActivity extends Activity {
 
 		@Override
 		public int getCount() {
-			return taskInfos.size() + 2;// 加2，代表的是两个TextView,(用户进程，系统进程)
+			SharedPreferences sp = getSharedPreferences("config", MODE_PRIVATE);
+			boolean showsystemprocess = sp
+					.getBoolean("showsystemprocess", true);
+			if (showsystemprocess) {
+				return taskInfos.size() + 2;// 加2，代表的是两个TextView,(用户进程，系统进程)
+			} else {
+				return userTaskInfos.size() + 1;//只显示用户进程
+			}
+
 		}
 
 		@Override
@@ -381,5 +391,14 @@ public class Fun4TaskManagerActivity extends Activity {
 		public TextView tv_name;
 		public TextView tv_memorysize;
 		public CheckBox cb_status;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		//只有当返回值为200时才刷新数据
+		if(resultCode==200){
+			fillData();
+		}
 	}
 }
