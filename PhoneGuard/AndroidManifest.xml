@@ -127,6 +127,8 @@
         </service>
         <service android:name="com.onyas.phoneguard.service.WatchDogService" >
         </service>
+        <service android:name="com.onyas.phoneguard.service.UpdateWidgetService" >
+        </service>
 
         <receiver android:name="com.onyas.phoneguard.receiver.OutgoingCallReceiver" >
             <intent-filter android:priority="1000" >
