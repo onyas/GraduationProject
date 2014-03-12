@@ -157,6 +157,15 @@
                 <action android:name="android.intent.action.SCREEN_OFF" />
             </intent-filter>
         </receiver>
+        <receiver android:name="com.onyas.phoneguard.receiver.ProcessManagerWidget" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/appwidget_info" />
+        </receiver>
 
         <provider
             android:name="com.onyas.phoneguard.provider.AppLockProvider"
