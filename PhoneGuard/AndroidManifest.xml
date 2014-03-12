@@ -120,6 +120,10 @@
             android:name="com.onyas.phoneguard.ui.TaskSettingActivity"
             android:label="@string/tasksetting" >
         </activity>
+        <activity
+            android:name="com.onyas.phoneguard.ui.CommonNumActivity"
+            android:label="@string/commonnum" >
+        </activity>
 
         <service android:name="com.onyas.phoneguard.service.PhoneNumberService" >
         </service>

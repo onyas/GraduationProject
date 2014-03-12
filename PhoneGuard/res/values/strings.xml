@@ -34,4 +34,5 @@
 	<string name="app_lock">程序锁</string>
 	<string name="setting_center">设置中心</string>
 	<string name="tasksetting">任务设置</string>
+	<string name="commonnum">常用号码查询</string>
 </resources>

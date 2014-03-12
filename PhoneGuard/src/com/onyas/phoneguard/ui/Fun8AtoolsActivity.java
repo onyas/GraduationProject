@@ -28,7 +28,7 @@ import com.onyas.phoneguard.service.PhoneNumberService;
 public class Fun8AtoolsActivity extends Activity implements OnClickListener {
 
 	private TextView tv_atool_query, tv_atool_serstate, tv_atool_bgcolor,
-			tv_atool_locate, tv_atool_sms_restore, tv_atool_sms_backup,tv_atool_app_lock;
+			tv_atool_locate, tv_atool_sms_restore, tv_atool_sms_backup,tv_atool_app_lock,tv_atool_commonnum;
 	private CheckBox cb_atool_change;
 	private Intent serviceIntent;
 	private SharedPreferences sp;
@@ -50,6 +50,7 @@ public class Fun8AtoolsActivity extends Activity implements OnClickListener {
 		tv_atool_serstate = (TextView) findViewById(R.id.tv_atool_servicestate);
 		tv_atool_bgcolor = (TextView) findViewById(R.id.tv_atool_bgcolor);
 		cb_atool_change = (CheckBox) findViewById(R.id.cb_atool_servicechange);
+		tv_atool_commonnum= (TextView) findViewById(R.id.tv_atool_commonnum);
 
 		
 		serviceIntent = new Intent(this, PhoneNumberService.class);
@@ -79,6 +80,7 @@ public class Fun8AtoolsActivity extends Activity implements OnClickListener {
 		tv_atool_sms_backup.setOnClickListener(this);
 		tv_atool_sms_restore.setOnClickListener(this);
 		tv_atool_app_lock.setOnClickListener(this);
+		tv_atool_commonnum.setOnClickListener(this);
 	}
 
 	@Override
@@ -157,7 +159,12 @@ public class Fun8AtoolsActivity extends Activity implements OnClickListener {
 			Intent lockIntent = new Intent(this,AppLockActivity.class);
 			startActivity(lockIntent);
 			break;
+		case R.id.tv_atool_commonnum:
+			Intent commonnumIntent = new Intent(this,CommonNumActivity.class);
+			startActivity(commonnumIntent);
+		break;
 		}
+	
 	}
 
 }
