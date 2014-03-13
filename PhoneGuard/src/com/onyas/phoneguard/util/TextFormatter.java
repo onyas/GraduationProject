@@ -13,6 +13,9 @@ public class TextFormatter {
 	 */
 	public static String sizeFormat(long size) {
 		DecimalFormat formater = new DecimalFormat("####.00");
+		if(size<0){
+			size=0;
+		}
 		if (size < 1024) {
 			return size + "bytes";
 		} else if (size < 1024 * 1024) {
@@ -42,6 +45,9 @@ public class TextFormatter {
 	 * @return ¶à´ó(KB,MB,GB)
 	 */
 	public static String kbFormat(int size) {
+		if(size<0){
+			size=0;
+		}
 		return sizeFormat(size*1024);
 	}
 }

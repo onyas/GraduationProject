@@ -1,6 +1,8 @@
 package com.onyas.phoneguard.ui;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,9 +10,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
-import android.graphics.drawable.Drawable;
 import android.net.TrafficStats;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -27,6 +30,16 @@ public class Fun5TrafficManagerActivity extends Activity {
 	private ListView lv_content;
 	private TrafficAdapter adapter;
 	private PackageManager pm;
+	private Timer timer;
+	private TimerTask task;
+	private Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			adapter.notifyDataSetChanged();
+		}
+
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +55,8 @@ public class Fun5TrafficManagerActivity extends Activity {
 
 		getTrafficInfo();
 
-		
 		lv_content.addHeaderView(View.inflate(this, R.layout.traffic_title,
-				null));//为listView添加标题,必须放在setAdapter的前面
+				null));// 为listView添加标题,必须放在setAdapter的前面
 		lv_content.setAdapter(adapter);
 
 	}
@@ -140,4 +152,25 @@ public class Fun5TrafficManagerActivity extends Activity {
 		TextView tv_rx;
 	}
 
+	@Override
+	protected void onStart() {
+		super.onStart();
+		timer = new Timer();
+		task = new TimerTask() {
+			@Override
+			public void run() {
+				Message msg = Message.obtain();
+				handler.sendMessage(msg);
+			}
+		};
+		timer.schedule(task, 1000, 2000);
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		timer.cancel();
+		timer = null;
+		task = null;
+	}
 }

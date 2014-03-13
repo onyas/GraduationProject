@@ -8,27 +8,31 @@
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="图标" />
+        android:text="图标"
+        android:textColor="@color/textColor" />
 
     <TextView
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
-        android:text="名称" />
+        android:text="名称"
+        android:textColor="@color/textColor" />
 
     <TextView
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
-        android:text="上传" />
+        android:text="上传"
+        android:textColor="@color/textColor" />
 
     <TextView
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
-        android:text="下载" />
+        android:text="下载"
+        android:textColor="@color/textColor" />
 
 </LinearLayout>
