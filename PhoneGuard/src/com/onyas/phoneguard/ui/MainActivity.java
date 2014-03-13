@@ -127,6 +127,11 @@ public class MainActivity extends Activity implements OnItemClickListener {
 			Intent TaskIntent = new Intent(MainActivity.this, Fun4TaskManagerActivity.class);
 			startActivity(TaskIntent);
 			break;
+		case 4://流量管理
+			Log.i(TAG, "进入任务管理功能");
+			Intent TrafficIntent = new Intent(MainActivity.this, Fun5TrafficManagerActivity.class);
+			startActivity(TrafficIntent);
+			break;
 		case 7://高级工具
 			Log.i(TAG, "进入高级工具");
 			Intent fun8 = new Intent(MainActivity.this, Fun8AtoolsActivity.class);

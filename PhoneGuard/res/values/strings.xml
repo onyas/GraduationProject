@@ -35,4 +35,5 @@
 	<string name="setting_center">设置中心</string>
 	<string name="tasksetting">任务设置</string>
 	<string name="commonnum">常用号码查询</string>
+	<string name="traffic_managert">流量管理</string>
 </resources>
