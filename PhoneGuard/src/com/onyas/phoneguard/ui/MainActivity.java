@@ -148,8 +148,8 @@ public class MainActivity extends Activity implements OnItemClickListener {
 					Fun5TrafficManagerActivity.class);
 			startActivity(TrafficIntent);
 			break;
-		case 6:// 高级工具
-			Log.i(TAG, "进入高级工具");
+		case 6:// 系统优化
+			Log.i(TAG, "进入系统优化");
 			Intent fun7 = new Intent(MainActivity.this,
 					Fun7SystemOptiActivity.class);
 			startActivity(fun7);

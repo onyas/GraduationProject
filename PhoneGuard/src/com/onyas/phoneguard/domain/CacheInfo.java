@@ -1,5 +1,10 @@
 package com.onyas.phoneguard.domain;
 
+/**
+ * »º´æµÄÐÅÏ¢
+ * @author Administrator
+ *
+ */
 public class CacheInfo {
 
 	private String name;

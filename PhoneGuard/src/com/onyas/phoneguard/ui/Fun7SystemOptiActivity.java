@@ -9,14 +9,18 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.content.pm.IPackageStatsObserver;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageStats;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -56,6 +60,31 @@ public class Fun7SystemOptiActivity extends ListActivity {
 
 		adapter = new SystemOptiAdapter();
 		lv.setAdapter(adapter);
+		
+		
+		lv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				
+				/*
+				 *  <intent-filter>
+	                <action android:name="android.settings.APPLICATION_DETAILS_SETTINGS" />
+	                <category android:name="android.intent.category.DEFAULT" />
+	                <data android:scheme="package" />
+	            	</intent-filter>
+				 * */
+				CacheInfo cinfo = (CacheInfo) lv.getItemAtPosition(arg2);
+				Intent intent = new Intent();
+				intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+				intent.addCategory("android.intent.category.DEFAULT");
+				intent.setData(Uri.parse("package:"+cinfo.getPackname()));
+				startActivity(intent);
+			}
+		});
+		
+		
 	}
 
 	/**
