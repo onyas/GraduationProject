@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/tv_system_opti_name"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="marquee"
+        android:text="名称"
+        android:textColor="@color/textColor" />
+
+    <TextView
+        android:id="@+id/tv_system_opti_codesize"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:text="名称"
+        android:textColor="@color/textColor" />
+
+    <TextView
+        android:id="@+id/tv_system_opti_cachesize"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:text="上传"
+        android:textColor="@color/textColor" />
+
+    <TextView
+        android:id="@+id/tv_system_opti_datasize"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:text="下载"
+        android:textColor="@color/textColor" />
+
+</LinearLayout>

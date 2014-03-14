@@ -24,6 +24,8 @@ import android.widget.TextView;
 import com.onyas.phoneguard.R;
 import com.onyas.phoneguard.util.TextFormatter;
 
+//TODO 当前流量管理只是得到手机开机以来的流量，一般的做法，是把手机流量的信息每隔5分钟保存到数据库中，
+//当手机关机时，把手机运行的这段时间内的流量信息存入库中，下次开机时只在取出来
 public class Fun5TrafficManagerActivity extends Activity {
 
 	private TextView tv_mobile_total, tv_wifi_total;

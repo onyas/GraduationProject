@@ -30,6 +30,7 @@
     <uses-permission android:name="android.permission.WRITE_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE"/>
 
     <application
         android:name="MyApplication"
@@ -127,6 +128,10 @@
         <activity
             android:name="com.onyas.phoneguard.ui.Fun5TrafficManagerActivity"
             android:label="@string/traffic_managert" >
+        </activity>
+        <activity
+            android:name="com.onyas.phoneguard.ui.Fun7SystemOptiActivity"
+            android:label="@string/systemopti" >
         </activity>
 
         <service android:name="com.onyas.phoneguard.service.PhoneNumberService" >
