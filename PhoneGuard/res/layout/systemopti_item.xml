@@ -11,7 +11,8 @@
         android:layout_weight="1"
         android:ellipsize="marquee"
         android:text="名称"
-        android:textColor="@color/textColor" />
+        android:textColor="@color/textColor"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tv_system_opti_codesize"
@@ -20,7 +21,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:text="名称"
-        android:textColor="@color/textColor" />
+        android:textColor="@color/textColor"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tv_system_opti_cachesize"
@@ -29,7 +31,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:text="上传"
-        android:textColor="@color/textColor" />
+        android:textColor="@color/textColor"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tv_system_opti_datasize"
@@ -38,6 +41,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:text="下载"
-        android:textColor="@color/textColor" />
+        android:textColor="@color/textColor"
+        android:textSize="16sp" />
 
 </LinearLayout>
