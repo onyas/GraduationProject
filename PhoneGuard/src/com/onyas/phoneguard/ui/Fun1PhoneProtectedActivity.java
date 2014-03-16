@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
+import com.onyas.phoneguard.util.Logger;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -36,10 +36,10 @@ public class Fun1PhoneProtectedActivity extends Activity implements OnClickListe
 		super.onCreate(savedInstanceState);
 
 		if (isAlreadySavedPwd()) {
-			Log.i(TAG, "存入密码，正常登录");
+			Logger.i(TAG, "存入密码，正常登录");
 			showNormalDialog();
 		} else {
-			Log.i(TAG, "第一次登陆，需要设置密码");
+			Logger.i(TAG, "第一次登陆，需要设置密码");
 			showFirstDialog();
 		}
 
@@ -152,9 +152,9 @@ public class Fun1PhoneProtectedActivity extends Activity implements OnClickListe
 					Toast.makeText(this, "密码错误", Toast.LENGTH_SHORT).show();
 					return;
 				} else {
-					Log.i(TAG, "密码正确，进入手机防盗页面");
+					Logger.i(TAG, "密码正确，进入手机防盗页面");
 					if (isAlreadyGuided()) {
-						Log.i(TAG, "已经设置过向导，直接进入功能页面");
+						Logger.i(TAG, "已经设置过向导，直接进入功能页面");
 
 						setContentView(R.layout.fun_1lost_protect);
 						
@@ -205,7 +205,7 @@ public class Fun1PhoneProtectedActivity extends Activity implements OnClickListe
 						tv_resetup.setOnClickListener(this);
 
 					} else {
-						Log.i(TAG, "未设置过向导，进入向导设置界面");
+						Logger.i(TAG, "未设置过向导，进入向导设置界面");
 						finish();
 						startSetupGuide();
 					}

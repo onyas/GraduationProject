@@ -11,7 +11,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
+import com.onyas.phoneguard.util.Logger;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -116,58 +116,58 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		Log.i(TAG, "当前条目" + position);
+		Logger.i(TAG, "当前条目" + position);
 		switch (position) {
 		case 0:// 手机防盗功能
-			Log.i(TAG, "进入手机防盗功能");
+			Logger.i(TAG, "进入手机防盗功能");
 			Intent phoneIntent = new Intent(MainActivity.this,
 					Fun1PhoneProtectedActivity.class);
 			startActivity(phoneIntent);
 			break;
 		case 1:// 通讯卫士功能
-			Log.i(TAG, "进入通讯卫士功能");
+			Logger.i(TAG, "进入通讯卫士功能");
 			Intent TonxueIntent = new Intent(MainActivity.this,
 					BlackListActivity.class);
 			startActivity(TonxueIntent);
 			break;
 		case 2:// 应用程序管理
-			Log.i(TAG, "进入通讯卫士功能");
+			Logger.i(TAG, "进入通讯卫士功能");
 			Intent AppIntent = new Intent(MainActivity.this,
 					Fun3AppManagerActivity.class);
 			startActivity(AppIntent);
 			break;
 		case 3:// 任务管理
-			Log.i(TAG, "进入任务管理功能");
+			Logger.i(TAG, "进入任务管理功能");
 			Intent TaskIntent = new Intent(MainActivity.this,
 					Fun4TaskManagerActivity.class);
 			startActivity(TaskIntent);
 			break;
 		case 4:// 流量管理
-			Log.i(TAG, "进入流量管理功能");
+			Logger.i(TAG, "进入流量管理功能");
 			Intent TrafficIntent = new Intent(MainActivity.this,
 					Fun5TrafficManagerActivity.class);
 			startActivity(TrafficIntent);
 			break;
 		case 5:// 手机杀毒
-			Log.i(TAG, "进入手机杀毒功能");
+			Logger.i(TAG, "进入手机杀毒功能");
 			Intent anticIntent = new Intent(MainActivity.this,
 					Fun6AntiVirusActivity.class);
 			startActivity(anticIntent);
 			break;
 		case 6:// 系统优化
-			Log.i(TAG, "进入系统优化");
+			Logger.i(TAG, "进入系统优化");
 			Intent fun7 = new Intent(MainActivity.this,
 					Fun7SystemOptiActivity.class);
 			startActivity(fun7);
 			break;
 		case 7:// 高级工具
-			Log.i(TAG, "进入高级工具");
+			Logger.i(TAG, "进入高级工具");
 			Intent fun8 = new Intent(MainActivity.this,
 					Fun8AtoolsActivity.class);
 			startActivity(fun8);
 			break;
 		case 8:// 设置中心
-			Log.i(TAG, "进入设置中心");
+			Logger.i(TAG, "进入设置中心");
 			Intent fun9 = new Intent(MainActivity.this,
 					Fun9SettingCenterActivity.class);
 			startActivity(fun9);

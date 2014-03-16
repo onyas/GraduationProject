@@ -3,7 +3,7 @@ package com.onyas.phoneguard.test;
 import java.util.List;
 
 import android.test.AndroidTestCase;
-import android.util.Log;
+import com.onyas.phoneguard.util.Logger;
 
 import com.onyas.phoneguard.db.dao.BlackListDao;
 
@@ -29,7 +29,7 @@ public class TestBlackListDao extends AndroidTestCase {
 		BlackListDao dao = new BlackListDao(getContext());
 		List<String> list = dao.findAll();
 		for(int i=0;i<list.size();i++){
-			Log.i(TAG, list.get(i));
+			Logger.i(TAG, list.get(i));
 		}
 		assertEquals(10, list.size());
 	}

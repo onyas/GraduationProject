@@ -5,7 +5,7 @@ import com.onyas.phoneguard.ui.Fun1PhoneProtectedActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import com.onyas.phoneguard.util.Logger;
 
 public class OutgoingCallReceiver extends BroadcastReceiver {
 
@@ -16,7 +16,7 @@ public class OutgoingCallReceiver extends BroadcastReceiver {
 		String number = getResultData();
 		//如果手机播打了2014这个号码，则自动打开手机防盗功能页面
 		if("2014".equals(number)){
-			Log.i(TAG, "播打了手机暗号");
+			Logger.i(TAG, "播打了手机暗号");
 			Intent phoneIntent = new Intent(context, Fun1PhoneProtectedActivity.class);
 			//Context中有一个startActivity方法，Activity继承自Context，重载了startActivity方法。
 			//如果使用 Activity的startActivity方法，不会有任何限制，而如果使用Context的startActivity方法的话，
