@@ -10,7 +10,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
-import com.onyas.phoneguard.util.Logger;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
@@ -93,7 +93,7 @@ public class BlackListActivity extends Activity {
 	 * @param v
 	 */
 	public void click(View v) {
-		Logger.i(TAG, "添加黑名单");
+		Log.i(TAG, "添加黑名单");
 		AlertDialog.Builder builder = new Builder(this);
 		builder.setTitle("添加黑名单号码");
 		final EditText et = new EditText(this);

@@ -17,7 +17,9 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import com.onyas.phoneguard.util.Logger;
+import android.util.Log;
+
+
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
@@ -91,7 +93,6 @@ public class SplashActivity extends Activity {
 			try {
 				Thread.sleep(2000);
 				if (isNeedUpdate(getVersion())) {
-					Logger.i(TAG, "弹出升级对话框");
 					Message msg = new Message();
 					msg.what = 1;
 					handler.sendMessage(msg);
@@ -100,7 +101,6 @@ public class SplashActivity extends Activity {
 				e.printStackTrace();
 				Looper.prepare();
 				Toast.makeText(getApplicationContext(), "获取服务器信息异常,进入主界面", Toast.LENGTH_SHORT).show();
-				Logger.i(TAG, "获取服务器信息异常,进入主界面");
 				loadMainUI();
 				Looper.loop();
 			}
@@ -130,7 +130,6 @@ public class SplashActivity extends Activity {
 		public void run() {
 			try {
 				File file = DownLoadFileTask.getFile(path, filePath, pd);
-				Logger.i(TAG, "成功下载文件！");
 				pd.dismiss();
 				installApk(file);
 			} catch (Exception e) {
@@ -197,7 +196,7 @@ public class SplashActivity extends Activity {
 			public void onClick(DialogInterface dialog, int which) {
 				if (Environment.getExternalStorageState().equals(
 						Environment.MEDIA_MOUNTED)) {
-					Logger.i(TAG, "下载apk文件" + info.getApkurl());
+					Log.i(TAG, "下载apk文件" + info.getApkurl());
 					pd.show();
 					DownLoadFileThread downloadThread = new DownLoadFileThread(
 							info.getApkurl(), Environment
@@ -217,7 +216,7 @@ public class SplashActivity extends Activity {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				Logger.i(TAG, "用户取消，进入主界面");
+				Log.i(TAG, "用户取消，进入主界面");
 				loadMainUI();
 			}
 		});
@@ -237,17 +236,17 @@ public class SplashActivity extends Activity {
 			info = updateEngine.getUpdateInfo(R.string.apkserver);
 			String serverVersion = info.getVersion();
 			if (serverVersion.equals(version)) {
-				Logger.i(TAG, "版本号相同，不需要升级，直接进入主界面");
+				Log.i(TAG, "版本号相同，不需要升级，直接进入主界面");
 				loadMainUI();
 				return false;
 			} else {
-				Logger.i(TAG, "版本号不相同，需要升级");
+				Log.i(TAG, "版本号不相同，需要升级");
 				return true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			Toast.makeText(this, "获取服务器信息异常,进入主界面", Toast.LENGTH_SHORT).show();
-			Logger.i(TAG, "获取服务器信息异常,进入主界面");
+			Log.i(TAG, "获取服务器信息异常,进入主界面");
 			loadMainUI();
 			return false;
 		}

@@ -15,7 +15,7 @@ import android.net.Uri;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
-import com.onyas.phoneguard.util.Logger;
+import android.util.Log;
 
 import com.onyas.phoneguard.db.dao.AppLockDao;
 import com.onyas.phoneguard.ui.ProtectAppActivity;
@@ -112,11 +112,11 @@ public class WatchDogService extends Service {
 						// 获取当前用户可见的activity所在程序的包名
 						String packname = currentTast.topActivity
 								.getPackageName();
-						// Logger.i(TAG, "当前正在运行" + packname);
+						// Log.i(TAG, "当前正在运行" + packname);
 
 						if (lockapps.contains(packname)) {
 							// 需要保护的，然后弹出输入密码的对话框
-							Logger.i(TAG, "需要锁定" + packname);
+							Log.i(TAG, "需要锁定" + packname);
 
 							// 当用户输入正确密码第二次看到用户程序的界面时，不要弹出输入密码的框
 							if (tempUnprotect.contains(packname)) {
@@ -127,7 +127,7 @@ public class WatchDogService extends Service {
 							startActivity(protectAppIntent);
 						} else {
 							// 放行执行
-							Logger.i(TAG, "不需要锁定" + packname);
+							Log.i(TAG, "不需要锁定" + packname);
 						}
 
 						sleep(1000);// 每隔1秒钟监视一次
@@ -154,7 +154,7 @@ public class WatchDogService extends Service {
 		@Override
 		public void onChange(boolean selfChange) {
 			super.onChange(selfChange);
-			Logger.i(TAG, "数据库内容发生了改变");
+			Log.i(TAG, "数据库内容发生了改变");
 			// 重新更新lockapps集合里面的内容
 			lockapps = dao.findAll();
 		}

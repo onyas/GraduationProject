@@ -44,11 +44,11 @@ public class AppInfoEngine {
 			AppInfo appinfo = new AppInfo(icon, appname, packagename,
 					isSystemApp);
 
-		/*	Logger.i(TAG, packagename + "," + appname);
+		/*	Log.i(TAG, packagename + "," + appname);
 			if (filterApp(info.applicationInfo)) {
-				Logger.i(TAG, "三方应用");
+				Log.i(TAG, "三方应用");
 			} else {
-				Logger.i(TAG, "系统应用");
+				Log.i(TAG, "系统应用");
 			}*/
 			appInfos.add(appinfo);
 		}

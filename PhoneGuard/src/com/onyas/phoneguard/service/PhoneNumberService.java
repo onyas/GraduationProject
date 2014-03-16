@@ -8,7 +8,7 @@ import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
-import com.onyas.phoneguard.util.Logger;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
@@ -54,9 +54,9 @@ public class PhoneNumberService extends Service {
 				}
 				break;
 			case TelephonyManager.CALL_STATE_RINGING:// 响铃状态
-				Logger.i(TAG, "incoming num" + incomingNumber);
+				Log.i(TAG, "incoming num" + incomingNumber);
 				String address = PhoneAddressEngine.getAddress(incomingNumber);
-				Logger.i(TAG, address);
+				Log.i(TAG, address);
 				// Toast.makeText(getApplicationContext(), address,
 				// Toast.LENGTH_SHORT).show();
 				showLocation(address);
@@ -117,7 +117,7 @@ public class PhoneNumberService extends Service {
 			resid = R.drawable.call_locate_green;
 			break;
 		}
-		Logger.i(TAG, "加载的背景为+"+resid);
+		Log.i(TAG, "加载的背景为+"+resid);
 		tv.setBackgroundResource(resid);
 		tv.setText(address);
 		

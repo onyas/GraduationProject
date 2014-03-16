@@ -55,11 +55,11 @@ public class AppManagerAdapter extends BaseAdapter {
 		AppInfo appinfo = infos.get(position);
 		if (convertView == null) {
 			// 通过资源文件，创建view对象
-//			Logger.i(TAG, "通过资源文件，创建view对象");
+//			Log.i(TAG, "通过资源文件，创建view对象");
 			view = View.inflate(context, R.layout.fun_3app_item, null);
 		} else {
 			// 使用历史缓存view对象，不用反复调用inflate方法
-//			Logger.i(TAG, "使用历史缓存view对象");
+//			Log.i(TAG, "使用历史缓存view对象");
 			view = convertView;
 		}
 		iv = (ImageView) view.findViewById(R.id.iv_appmanager_function);

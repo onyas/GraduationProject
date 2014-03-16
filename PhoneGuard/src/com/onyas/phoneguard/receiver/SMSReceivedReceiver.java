@@ -8,7 +8,7 @@ import android.media.MediaPlayer;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.text.TextUtils;
-import com.onyas.phoneguard.util.Logger;
+import android.util.Log;
 
 import com.onyas.phoneguard.R;
 import com.onyas.phoneguard.engine.GPSInfoEngine;
@@ -33,7 +33,7 @@ public class SMSReceivedReceiver extends BroadcastReceiver{
 			String content = sms.getMessageBody();
 			if("#*location*#".equals(content))
 			{
-				Logger.i(TAG, content);
+				Log.i(TAG, content);
 				GPSInfoEngine gps = GPSInfoEngine.getInstance(context);
 				String location = gps.getLocation();
 				if(!TextUtils.isEmpty(location)){
