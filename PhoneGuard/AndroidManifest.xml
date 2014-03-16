@@ -133,7 +133,9 @@
             android:name="com.onyas.phoneguard.ui.Fun7SystemOptiActivity"
             android:label="@string/systemopti" >
         </activity>
-
+		<activity android:name="com.onyas.phoneguard.ui.Fun6AntiVirusActivity" android:label="@string/anti_virtus"></activity>
+        
+        
         <service android:name="com.onyas.phoneguard.service.PhoneNumberService" >
         </service>
         <service android:name="com.onyas.phoneguard.service.BackupSmsService" >
