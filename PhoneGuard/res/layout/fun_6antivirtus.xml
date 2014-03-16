@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <ProgressBar
-        android:id="@+id/pb_anti"
+    <SeekBar
+        android:id="@+id/sb_anti"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
